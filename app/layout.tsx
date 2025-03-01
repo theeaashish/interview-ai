@@ -1,7 +1,8 @@
-import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import localfont from "next/font/local";
+import { Metadata } from "next";
 
 const mazzard = localfont({
   src: [
@@ -48,8 +49,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={mazzard.variable + " " + radis.variable}>
-        <NavBar />
-        {children}
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <NavBar />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
