@@ -1,15 +1,38 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import NavBar from "@/components/NavBar";
+import localfont from "next/font/local";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const mazzard = localfont({
+  src: [
+    {
+      path: "../public/fonts/MazzardM-Light.otf",
+      weight: "400",
+      style: "normal",
+    },
+
+    {
+      path: "../public/fonts/MazzardM-Medium.otf",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/MazzardM-Regular.otf",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "../public/fonts/MazzardM-SemiBold.otf",
+      weight: "700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-mazzard",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const radis = localfont({
+  src: "../public/fonts/Radis-Sans.otf",
+  variable: "--font-radis",
 });
 
 export const metadata: Metadata = {
@@ -24,9 +47,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={mazzard.variable + " " + radis.variable}>
+        <NavBar />
         {children}
       </body>
     </html>
