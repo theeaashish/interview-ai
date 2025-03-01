@@ -1,15 +1,16 @@
 import React from 'react'
 import Image from 'next/image'
+import Button from './Button'
 
 const NavBar = () => {
   return (
-    <nav className='min-h-[100px] items-center flex px-20 justify-between'>
+    <nav className='min-h-[100px] items-center flex sm:px-20 px-8 justify-between'>
       <div className='flex items-center gap-3'>
         <Image width={35} height={35} className='invert' src="/images/logo.svg" alt="Logo" />
-        <h2 className='text-3xl font-medium'>interwise</h2>
+        <h2 className='sm:text-3xl text-2xl font-medium'>interwise</h2>
       </div>
-      <div className=''>
-        <ul className='flex font-[500] text-xl gap-18 items-center'>
+      <div className='max-sm:hidden'>
+        <ul className='flex font-[500] text-lg gap-18 items-center'>
             {
                 ["Home", "About", "Projects", "Services", "Contacts"].map((item, index) => (
                     <li key={index}>
@@ -21,8 +22,7 @@ const NavBar = () => {
       </div>
       <div className='flex items-center gap-6'>
         <Image width={46} height={46} className='cursor-pointer' src="/images/download.svg" alt="" />
-        <button className='px-8 cursor-pointer hover:bg-[#111111] hover:text-white transition-all duration-500 py-3 rounded-full bg-[#E5E9EB] text-2xl font-medium'>Let's Talk
-        </button>
+        <Button name="Let's Talk" hidden='hidden'/>
       </div>
     </nav>
   )
