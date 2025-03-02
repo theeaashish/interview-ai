@@ -4,8 +4,8 @@ import Image from "next/image";
 
 const Hero = () => {
   return (
-    <section className="min-h-[70vh] flex flex-col items-center px-8 justify-center relative">
-      <div className="absolute max-sm:hidden w-full -z-10">
+    <section className="min-h-[80vh] flex overflow-hidden flex-col items-center px-8 justify-center relative">
+      <div className="absolute max-sm:hidden w-full -z-10 -top-30">
         <Image
           width={200}
           height={200}
@@ -22,7 +22,7 @@ const Hero = () => {
           />
         </div>
       </div>
-      <div className="flex flex-col gap-6 items-center">
+      <div className="flex flex-col gap-6 items-center -mt-14 max-sm:-mt-80">
         <h1 className="font-semibold max-sm:text-[40px] text-7xl text-center">
           Master Interviews with AI
         </h1>
@@ -32,6 +32,16 @@ const Hero = () => {
         <Button
           name="Practice Now"
           style={{ marginTop: "20px", fontWeight: "600" }}
+        />
+      </div>
+
+      <div className="arrow-div mt-22 bg-black rounded-full absolute top-[360px] cursor-pointer transition-all duration-300 hover:bg-[var(--main-bg)] group">
+        <Image
+          width={45}
+          height={45}
+          className="invert transition-all duration-300 group-hover:invert-0"
+          src="/images/arrow.svg"
+          alt="arrow"
         />
       </div>
     </section>

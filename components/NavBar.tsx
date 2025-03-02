@@ -11,6 +11,7 @@ const NavBar = () => {
   return (
     <nav className="min-h-[100px] items-center flex sm:px-20 px-8 justify-between">
       <div className="flex items-center gap-3">
+        <Link href={"/"} className="flex items-center gap-3">
         <Image
           width={35}
           height={35}
@@ -19,15 +20,16 @@ const NavBar = () => {
           alt="Logo"
         />
         <h2 className="sm:text-3xl text-2xl font-medium">interwise</h2>
+        </Link>
       </div>
       <div className="max-sm:hidden">
         <ul className="flex font-[500] text-lg gap-18 items-center">
-          {["Home", "About", "Projects", "Services", "Contacts"].map(
+          {["Home", "About", "Services", "Contacts", "Practice"].map(
             (item, index) => {
               const link = item === "Home" ? "/" : `/${item.toLowerCase()}`;
 
               return (
-                <li key={index}>
+                <li key={index} className="relative nav-hover">
                   <Link
                     href={link}
                     className={`${pathname === link ? "font-bold" : ""}`}

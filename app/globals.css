@@ -10,8 +10,7 @@
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --main-bg: #E5E9EB;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -24,4 +23,47 @@
 
 .logo {
   font-family: var(--font-radis);
+}
+
+.nav-hover::after {
+  content: "";
+  position: absolute;
+  background-color: #000;
+  height: 1px;
+  width: 0;
+  left: 0;
+  bottom: -1px;
+  transition: 0.3s;
+}
+
+.nav-hover:hover::after {
+  width: 100%;
+}
+
+.btn {
+  background: linear-gradient(to top, #0a0a0a 50%, #E5E9EB 50%);
+  background-size: 100% 200%;
+  background-position: top;
+}
+
+.btn:hover {
+  background-position: bottom;
+  color: #fff;
+}
+
+::selection {
+  background: #E5E9EB;
+}
+
+.arrow-div {
+  animation: moveUpDown 2.5s ease-in-out infinite;
+}
+
+@keyframes moveUpDown {
+  0%, 100% {
+    top: 380px;
+  }
+  50% {
+    top: 360px;
+  }
 }
