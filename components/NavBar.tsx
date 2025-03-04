@@ -15,15 +15,14 @@ const NavBar = () => {
         <Image
           width={35}
           height={35}
-          className="invert"
           src="/images/logo.svg"
           alt="Logo"
         />
-        <h2 className="sm:text-3xl text-2xl font-medium">interwise</h2>
+        <h2 className="sm:text-3xl text-2xl text-white font-medium">interwise</h2>
         </Link>
       </div>
-      <div className="max-sm:hidden">
-        <ul className="flex font-[500] text-lg gap-18 items-center">
+      <div className="max-lg:hidden">
+        <ul className="flex font-[500] text-[var(--nav-text)] text-lg gap-18 items-center">
           {["Home", "About", "Services", "Contacts", "Practice"].map(
             (item, index) => {
               const link = item === "Home" ? "/" : `/${item.toLowerCase()}`;
@@ -44,9 +43,9 @@ const NavBar = () => {
       </div>
       <div className="flex items-center gap-6">
         <Image
-          width={46}
-          height={46}
-          className="cursor-pointer"
+          width={36}
+          height={36}
+          className="cursor-pointer sm:hidden invert"
           src="/images/download.svg"
           alt=""
         />

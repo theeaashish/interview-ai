@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="bg-[var(--background)]">
       <body className={mazzard.variable + " " + radis.variable}>
       <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
           <NavBar />

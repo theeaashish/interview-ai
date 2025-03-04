@@ -4,21 +4,19 @@
   font-family: var(--font-mazzard);
 }
 
+:root {
+  --main-bg: #E5E9EB;
+  --background: #050505;
+  --nav-text: #848484;
+  --theme-color: #B77895;
+  --theme-hover: #ffacf3;
+}
+
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-:root {
-  --main-bg: #E5E9EB;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 
 .logo {
@@ -28,7 +26,7 @@
 .nav-hover::after {
   content: "";
   position: absolute;
-  background-color: #000;
+  background-color: #848484;
   height: 1px;
   width: 0;
   left: 0;
@@ -41,29 +39,33 @@
 }
 
 .btn {
-  background: linear-gradient(to top, #0a0a0a 50%, #E5E9EB 50%);
+  background: linear-gradient(to top, #ffacf3 50%, #B77895 50%);
   background-size: 100% 200%;
   background-position: top;
 }
 
 .btn:hover {
   background-position: bottom;
-  color: #fff;
+  color: #000;
 }
 
 ::selection {
-  background: #E5E9EB;
+  background: #464646;
 }
 
 .arrow-div {
-  animation: moveUpDown 2.5s ease-in-out infinite;
+  animation: moveUpDown 3s ease-in-out infinite;
 }
 
 @keyframes moveUpDown {
   0%, 100% {
-    top: 380px;
+    top: 55vh;
   }
   50% {
-    top: 360px;
+    top: 52vh;
   }
+}
+
+.card {
+  box-shadow: 0 0 100px 5px #fff;
 }
