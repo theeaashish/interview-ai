@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import Image from "next/image";
+import Link from "next/link";
 
 
 const Hero = () => {
@@ -40,10 +41,14 @@ const Hero = () => {
         <p className="text-center text-xl">
           AI-powered feedback to help you ace every interview with confidence.
         </p>
+
+        <Link href={'/dashboard'}>
         <Button
           name="Practice Now"
           style={{ marginTop: "20px", fontWeight: "600" }}
         />
+
+</Link>
       </div>
 
       <div className="arrow-div mt-22 bg-[var(--theme-color)] rounded-full absolute cursor-pointer transition-all duration-300 hover:bg-[var(--theme-hover)] group">
