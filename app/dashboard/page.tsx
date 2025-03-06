@@ -1,4 +1,3 @@
-import { UserButton } from '@clerk/nextjs'
 import React from 'react'
 
 const Dashboard = () => {
@@ -6,7 +5,6 @@ const Dashboard = () => {
     <div className='text-white'>
      <h1> This is my dashboard </h1>
 
-      <UserButton/>
     </div>
   )
 }

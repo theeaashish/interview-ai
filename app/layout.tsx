@@ -1,5 +1,4 @@
 // import { ThemeProvider } from "next-themes";
-import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 import localfont from "next/font/local";
@@ -48,13 +47,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
       <html lang="en" className="bg-[var(--background)]">
         <body className={mazzard.variable + " " + radis.variable}>
           <NavBar />
           {children}
         </body>
       </html>
-    </ClerkProvider>
   );
-}
+} 

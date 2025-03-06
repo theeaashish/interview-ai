@@ -47,8 +47,9 @@ const Hero = () => {
           name="Practice Now"
           style={{ marginTop: "20px", fontWeight: "600" }}
         />
+       </Link>
 
-</Link>
+       
       </div>
 
       <div className="arrow-div mt-22 bg-[var(--theme-color)] rounded-full absolute cursor-pointer transition-all duration-300 hover:bg-[var(--theme-hover)] group">
