@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";
 import Interview from "@/models/Interview";
 import { getUserIdFromToken } from "@/lib/auth";
+import { generateInterviewQuestions } from '@/lib/gemini';
+import { extractTextFromPDF } from '@/lib/pdfExtractor';
 
 export async function POST(req: Request) {
     try {
@@ -16,8 +18,13 @@ export async function POST(req: Request) {
 
         // get user id from token
         const userId = getUserIdFromToken(token);
+        // const { jobRole, techStack, yearsOfExperience } = await req.json();
 
-        const { jobRole, techStack, yearsOfExperience } = await req.json();
+        const formData = await req.formData();
+        const jobRole = formData.get('jobRole') as string;
+        const techStack = JSON.parse(formData.get('techStack') as string);
+        const yearsOfExperience = parseInt(formData.get('yearsOfExperience') as string);
+        const resumeFile = formData.get('resume') as File | null;
 
         if (!jobRole || !techStack || !yearsOfExperience) {
             return NextResponse.json(
@@ -26,12 +33,29 @@ export async function POST(req: Request) {
             );
         }
 
+        // Extract text from resume (if provided)
+        let resumeText = '';
+         if (resumeFile) {
+            resumeText = await extractTextFromPDF(resumeFile);
+        }  
+
+        // generate questions using gemini
+        const context = resumeText || `Job Role: ${jobRole}, Tech Stack: ${techStack.join(', ')}, Experience: ${yearsOfExperience} years`;
+        const questions = await generateInterviewQuestions(context);
+      
+
         const newInterview = new Interview({
             user: userId,
             jobRole,
             techStack,
             yearsOfExperience,
-        });
+            questions: questions.map((question) => ({
+              text: question,
+              answer: '',
+              analysis: null,
+            })),
+            status: 'in-progress',
+          });
         
         await newInterview.save();
 
