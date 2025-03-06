@@ -31,7 +31,20 @@ export async function POST(req: Request) {
         // generate jwt token
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET!, { expiresIn: '7d' });
 
-        return NextResponse.json({ message: 'Login successful', token }, { status: 200 });
+        const response = NextResponse.json({ message: 'Login successful' });
+
+        // set up token in cookie
+        response.cookies.set({
+            name: 'token',
+            value: token,
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production',
+            maxAge: 7 * 24 * 60 * 60, 
+            path: '/',
+        });
+
+        return response;
+
     } catch (error) {
         console.error(error);
         return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });

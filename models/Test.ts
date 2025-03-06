@@ -1,31 +1,38 @@
-import mongoose, {Schema, Document} from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
-interface ITest extends Document {
-    userId: string;
-    title: string;
-    questions: { question: string; answer: string; score?: number }[];
-    createdAt: Date;
-}
-
-const TestSchema = new Schema<ITest>({
-    userId: { 
-        type: String,
-        required: true,
+const TestSchema = new Schema(
+  {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
     },
     title: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
-    questions: [{
+    status: {
+      type: String,
+      enum: ["pending", "completed"],
+      default: "pending",
+    },
+    questions: [
+      {
         question: String,
-        answer: String,
-        score: Number,
-    }],
-    createdAt: {
-        type: Date,
-        default: Date.now
-    }
-});
+      },
+    ],
+    responses: [
+      {
+        type: String,
+      },
+    ],
+    score: {
+      type: Number,
+      default: 0,
+    },
+  },
+  { timestamps: true }
+);
 
-const Test = mongoose.model<ITest>("Test", TestSchema);
+const Test = mongoose.model("Test", TestSchema);
 export default Test;
