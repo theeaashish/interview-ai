@@ -96,7 +96,6 @@ const NewInterviewForm = ({ onClose, onStartInterview }: NewInterviewFormProps) 
           <InterviwFormInputs label="Job Role" type="text" placeholder="e.g Frontend Develeoper" value={jobRole} onChange={(e) => setJobRole(e.target.value)}/>
 
           {/* tech stack */}
-
           <InterviwFormInputs label="Tech-Stack (comma-seperated)" type="text" placeholder="e.g. React, NodeJs, TypeScript" value={techStack} onChange={(e) => setTechStack(e.target.value)} />
 
           {/* years of experience */}
