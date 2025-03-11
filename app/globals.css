@@ -17,6 +17,12 @@
   --font-mono: var(--font-geist-mono);
 }
 
+@layer utilities {
+  .task-status {
+    @apply px-2 py-1 text-xs rounded-full;
+  }
+}
+
 
 
 .logo {

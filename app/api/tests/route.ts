@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { verifyToken } from "@/lib/auth";
 import { connectDB } from "@/lib/mongodb";
 import Test from "@/models/Test";
-import { JwtPayload } from "jsonwebtoken";
+import type { JWTPayload } from "jose";
 
 export async function GET(req: Request) {
     try {
@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         const token = req.headers.get("Authorization")?.split(" ")[1];
         if (!token) return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 
-        const decoded = await verifyToken(token) as JwtPayload;
+        const decoded = await verifyToken(token) as JWTPayload & { userId: string };
 
         const newTest = new Test({
             userId: decoded.userId,

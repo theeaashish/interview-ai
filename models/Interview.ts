@@ -20,6 +20,13 @@ const questionSchema = new mongoose.Schema({
   },
 });
 
+const feedbackSchema = new mongoose.Schema({
+  overallFeedback: String,
+  strengths: [String],
+  areasForImprovement: [String],
+  nextSteps: [String],
+});
+
 const interviewSchema = new mongoose.Schema(
   {
     user: {
@@ -39,19 +46,28 @@ const interviewSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    resumeText: {
+      type: String,
+      default: "",
+    },
     questions: [questionSchema],
     overallScore: {
       type: Number,
       default: 0,
     },
+    feedback: feedbackSchema,
     status: {
       type: String,
       enum: ["pending", "in-progress", "completed"],
       default: "pending",
     },
+    completedAt: {
+      type: Date,
+      default: null,
+    },
   },
   { timestamps: true }
 );
 
-const Interview = mongoose.model("Interview", interviewSchema);
+const Interview = mongoose.models.Interview || mongoose.model("Interview", interviewSchema);
 export default Interview;
