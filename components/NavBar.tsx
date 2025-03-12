@@ -23,7 +23,7 @@ const NavBar = () => {
       </div>
       <div className="max-lg:hidden">
         <ul className="flex font-[500] text-[var(--nav-text)] text-lg gap-18 items-center">
-          {["Home", "About", "Services", "Contacts", "Practice"].map(
+          {["Home", "About", "Services", "Contacts", "Dashboard"].map(
             (item, index) => {
               const link = item === "Home" ? "/" : `/${item.toLowerCase()}`;
 
