@@ -1,8 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import SocialBtn from '@/components/auth-components/SocialBtn';
 import MainBtn from '@/components/auth-components/MainBtn';
 import Input from '@/components/auth-components/Input';
 import OAuthBtn from '@/components/auth-components/OAuthBtn';
