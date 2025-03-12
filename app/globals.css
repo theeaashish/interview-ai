@@ -10,6 +10,10 @@
   --nav-text: #848484;
   --theme-color: #B77895;
   --theme-hover: #ffacf3;
+  --primary-bg: #161831;
+  --secondry-text: #2C77EB;
+  --gradient-bg: linear-gradient(90deg,_rgba(44,119,235,1)_0%,_rgba(74,183,240,1)_100%);
+  --input-bg: #23191E;
 }
 
 @theme {
@@ -17,9 +21,28 @@
   --font-mono: var(--font-geist-mono);
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  background-color: var(--input-bg) !important;
+  -webkit-box-shadow: 0 0 0px 1000px var(--input-bg) inset !important;
+  color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 @layer utilities {
   .task-status {
     @apply px-2 py-1 text-xs rounded-full;
+  }
+  .input-div {
+    @apply flex items-center justify-center bg-[var(--input-bg)] sm:w-[50vw] h-[64px] rounded-[8px] px-6 gap-5;
+  }
+  .input-field {
+    @apply w-full h-full text-base placeholder-zinc-400 font-semibold outline-none bg-transparent;
+  }
+  .btn-primary {
+    @apply flex bg-[var(--input-bg)] w-full h-[64px] rounded-[8px] items-center justify-center gap-3 font-semibold border-2 border-gray-500 cursor-pointer hover:bg-transparent transition-all;
   }
 }
 

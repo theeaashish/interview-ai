@@ -2,13 +2,16 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import SocialBtn from '@/components/auth-components/SocialBtn';
+import MainBtn from '@/components/auth-components/MainBtn';
+import Input from '@/components/auth-components/Input';
 
 export default function SignupPage() {
   const router = useRouter();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  // const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const [debug, setDebug] = useState('');
@@ -31,11 +34,11 @@ export default function SignupPage() {
     setSignupSuccess(false);
 
     // Validate password match
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      setLoading(false);
-      return;
-    }
+    // if (password !== confirmPassword) {
+    //   setError('Passwords do not match');
+    //   setLoading(false);
+    //   return;
+    // }
 
     try {
       // Log the request
@@ -81,118 +84,85 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 py-12 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-md w-full space-y-8 bg-gray-800 p-8 rounded-lg shadow-lg">
-        <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-white">
-            Create your account
-          </h2>
-          <p className="mt-2 text-center text-sm text-gray-400">
-            Or{' '}
-            <Link href="/login" className="font-medium text-blue-500 hover:text-blue-400">
-              sign in to your existing account
-            </Link>
-          </p>
-        </div>
-        
-        {signupSuccess ? (
-          <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center">
-            Account created successfully! Redirecting to dashboard...
-          </div>
-        ) : (
-          <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
-            <div className="rounded-md shadow-sm -space-y-px">
-              <div>
-                <label htmlFor="name" className="sr-only">
-                  Full Name
-                </label>
-                <input
-                  id="name"
-                  name="name"
-                  type="text"
-                  autoComplete="name"
-                  required
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white bg-gray-700 rounded-t-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Full Name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
-                <input
-                  id="email-address"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white bg-gray-700 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
-                />
-              </div>
-              <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white bg-gray-700 focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
-                />
-              </div>
-              <div>
-                <label htmlFor="confirm-password" className="sr-only">
-                  Confirm Password
-                </label>
-                <input
-                  id="confirm-password"
-                  name="confirmPassword"
-                  type="password"
-                  autoComplete="new-password"
-                  required
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-700 placeholder-gray-500 text-white bg-gray-700 rounded-b-md focus:outline-none focus:ring-blue-500 focus:border-blue-500 focus:z-10 sm:text-sm"
-                  placeholder="Confirm Password"
-                />
-              </div>
-            </div>
+    <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10 relative">
+      <img
+        className="w-[269px] h-[299px] absolute left-6 top-4"
+        src="/images/circle-shape3.svg"
+        alt="circle-shape"
+      />
+      <img
+        className="w-[229px] h-[249px] absolute right-6 top-60"
+        src="/images/circle-shape2.svg"
+        alt="circle-shape"
+      />
+      <img
+        className="w-[229px] h-[249px] absolute left-6 bottom-0"
+        src="/images/circle-shape1.svg"
+        alt="circle-shape"
+      />
 
-            {error && (
-              <div className="text-red-500 text-sm text-center">{error}</div>
-            )}
-
-            <div>
-              <button
-                type="submit"
-                disabled={loading}
-                className={`group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white ${
-                  loading ? 'bg-blue-600' : 'bg-blue-500 hover:bg-blue-600'
-                } focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
-              >
-                {loading ? 'Creating account...' : 'Create account'}
-              </button>
-            </div>
-          </form>
-        )}
-        
-        {debug && (
-          <div className="mt-4 p-2 bg-gray-900 rounded text-xs text-gray-400 whitespace-pre-wrap">
-            <p className="font-bold mb-1">Debug Info:</p>
-            {debug}
-          </div>
-        )}
+      <div className="flex items-center justify-center gap-6">
+        <div className="bg-[var(--theme-color)] rounded-full w-[73px] h-[73px]"></div>
+        <h1 className="text-4xl font-bold">
+          Welcome to Sign Up{" "}
+          <span className="text-[var(--theme-color)]"> Buddy! </span>
+        </h1>
       </div>
+
+      {signupSuccess ? (
+        <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 text-center">
+           Account created successfully! Redirecting to dashboard...
+        </div>
+      ) : (
+
+      <form className="flex flex-col w-full items-center gap-6" onSubmit={handleSubmit}>
+        <Input src="/images/person.svg" id='name' alt="user" type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} autoComplete='name' placeholder="Enter your Full Name"/>
+        <Input src="/images/mail.svg" id='email' alt="mail" type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='email' placeholder="Enter your Email"/>
+        <Input src="/images/lock.svg" id='password' alt="password" type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete='new-password' placeholder="Enter your password"/>
+        {/* <Input src="/images/lock.svg" id='confirm-password' alt="password" type="password" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autoComplete='new-password' placeholder="Confirm your password"/> */}
+
+        <div className="flex justify-between w-[50vw]">
+          <div className="flex items-center justify-center gap-3">
+            <input
+              type="checkbox"
+              className="w-[24px] h-[24px] cursor-pointer text-blue-800 border-2 rounded-md border-white outline-none bg-transparent appearance-none checked:bg-blue-800 checked:border-white"
+              name="remember-me"
+            />
+            <label className="font-medium text-base" htmlFor="remember-me">
+              Remember Me
+            </label>
+          </div>
+          <div>
+            <h4 className="text-[var(--secondry-text)] text-base font-semibold cursor-pointer">
+              Forgot Password?
+            </h4>
+          </div>
+        </div>
+
+        {error && <p className="text-red-500 text-sm">{error}</p>}
+
+        <MainBtn type="submit" disabled={loading} name={loading ? 'Creating Account...' : 'Create Account'}/>
+       
+
+        <div className="flex gap-3 items-center justify-center">
+          <h5>Don’t have an account?</h5>
+          <Link href={"/login"}>
+            <span className="text-base font-semibold text-[var(--secondry-text)] cursor-pointer">Sign In</span>
+          </Link>
+        </div>
+
+        <div className="flex w-[50vw] items-center mt-4">
+          <div className="w-full border-t-2 border-zinc-600"></div>
+          <span className="text-base whitespace-nowrap px-4 text-[#B9B9B9]">Or continue with</span>
+          <div className="w-full border-t-2 border-zinc-600"></div>
+        </div>
+
+        <div className="flex w-[50vw] justify-center gap-4">
+            <SocialBtn src="/images/google.svg" alt="google" name="Google"/>
+            <SocialBtn src="/images/facebook.svg" alt="facebook" name="Facebook"/>
+          </div>
+      </form>
+         )}
     </div>
   );
-} 
+};
