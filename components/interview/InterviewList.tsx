@@ -104,10 +104,12 @@ export default function InterviewList() {
       ) }
 
       { !error && interviews.length === 0 ? (
-        <div className="text-center py-8 bg-gray-50 dark:bg-gray-800 rounded-lg">
-        <p className="text-gray-500 dark:text-gray-400">No interviews found. Start a new interview to practice!</p>
-        <InterviewBtn onClick={handleCreateInterview} text="Create Your First Interview" />
-      </div>
+        <div className="w-full h-[40vh] flex items-center justify-center">
+          <div className="text-center py-8 w-[40vw]  bg-[var(--input-bg)] rounded-lg">
+            <p className="text-gray-400 mb-4">No interviews found. Start a new interview to practice!</p>
+            <InterviewBtn onClick={handleCreateInterview} text="Create Your First Interview" />
+          </div>
+        </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           { interviews.map((interview) => (

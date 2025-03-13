@@ -1,25 +1,25 @@
 'use client';
-import { useState } from 'react';
-import NewInterviewForm from '@/components/interview/NewInterviewForm';
-import InterviewSession from '@/components/interview/InterviewSession';
+import { useRouter } from "next/navigation";
+import NewInterviewForm from "@/components/interview/NewInterviewForm";
 
-export default function InterviewPage() {
-  const [interviewData, setInterviewData] = useState<any>(null);
+export default function NewInterviewPage() {
+  const router = useRouter();
 
-  const handleStartInterview = (data: any) => {
-    setInterviewData(data); // Set the interview data to start the session
+  const handleStartInterview = (interviewData: any) => {
+    router.push(`/interview/${interviewData._id}`);
   };
 
   return (
-    <div className="text-white max-h-screen">
-      {interviewData ? (
-        <InterviewSession interview={interviewData} />
-      ) : (
-        <NewInterviewForm
-          onClose={() => setInterviewData(null)}
-          onStartInterview={handleStartInterview}
-        />
-      )}
+    <div className="text-white">
+      <div>
+        <NewInterviewForm onClose={() => router.push('/dashboard')} onStartInterview={handleStartInterview} />
+      </div>
+
+      <div className="mt-2 text-center">
+        <button onClick={() => router.push('/dashboard')} className="text-blue-500 cursor-pointer hover:text-blue-600">
+          Cancel and return to dashboard
+        </button>
+      </div>
     </div>
-  );
+  )
 }

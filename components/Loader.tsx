@@ -1,9 +1,13 @@
 const Loader = () => {
   return (
-    <div className="flex justify-center items-center py-12">
-        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-  )
-}
+    <div className="w-full h-[40vh] flex items-center justify-center">
+    <div className="three-body">
+      <div className="three-body__dot"></div>
+      <div className="three-body__dot"></div>
+      <div className="three-body__dot"></div>
+    </div>
+    </div>
+  );
+};
 
-export default Loader
+export default Loader;
