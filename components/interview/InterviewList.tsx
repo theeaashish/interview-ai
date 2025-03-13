@@ -112,13 +112,14 @@ export default function InterviewList() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           { interviews.map((interview) => (
             <div key={interview._id} className="bg-[var(--input-bg)] max-w-[600px] max-sm:w-full rounded-xl shadow-md px-6 py-8">
-             // job role, status
+           
+             {/* // job role, status */}
               <div className="flex justify-between items-center mb-4">
                 <h3 className="text-md font-bold uppercase">{interview.jobRole}</h3>
                 {getStatusBadge(interview.status)}
             </div>
 
-            // experience, techStack, progress and score
+            {/* // experience, techStack, progress and score */}
               <div className="text-[var(--nav-text)] text-sm mb-4 flex flex-col gap-2 font-semibold">
                 <p>Tech Stack: {interview.techStack.join(', ')}</p>
                 <p>Experience: {interview.yearsOfExperience} { interview.yearsOfExperience <= 1 ? "Year" : "Years" }</p>
@@ -129,7 +130,7 @@ export default function InterviewList() {
                 )}
               </div>
 
-              // buttons for continue, view results, view analysis, and start new interview
+              {/* // buttons for continue, view results, view analysis, and start new interview */}
 
               <div className="flex gap-4 flex-wrap relative">
                 {interview.status === 'in-progress' && (
