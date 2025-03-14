@@ -10,6 +10,32 @@ const generationConfig = {
   maxOutPutTokens: 2000,
 };
 
+// retry cinfigurations
+const MAX_RETRIES = 3;
+const INITIAL_RETRY_DELAY = 2000; // 2 seconds
+
+// helper function to implement exponential backoff for api calls
+const retryWithExponentialBackoff = async <T> (fn: () => Promise<T>, retries = MAX_RETRIES, delay = INITIAL_RETRY_DELAY): Promise<T> => {
+  try {
+    return await fn();
+  } catch (error: any) {
+    // check if it's rate limit error
+    if (retries > 0 && error?.status === 429) {
+      console.log(`Rate limit exceeded. Retrying in ${delay}ms... (${retries} retries left)`);
+
+      // wait for the specific delay
+      await new Promise(resolve => setTimeout(resolve, delay));
+
+      // retry with increased delay
+      return retryWithExponentialBackoff(fn, retries - 1, delay * 2);
+    }
+
+    // if it's not rate limit error,
+    throw error;
+  }
+}
+
+
 interface GeneratedQuestions {
   questions: string[];
 }
@@ -39,7 +65,13 @@ export const generateInterviewQuestions = async (context: string): Promise<strin
     
     Required formate: { "questions": ["question1", "question2", ...] }`;
 
-    const result = await model.generateContent(prompt);
+    // use retry mechanism for api calls
+
+    const result = await retryWithExponentialBackoff(() => 
+      model.generateContent(prompt)
+    )
+
+    // const result = await model.generateContent(prompt);
     const text = await result.response.text();
 
     // clean response and parse
@@ -54,7 +86,7 @@ export const generateInterviewQuestions = async (context: string): Promise<strin
 
   } catch (error) {
     console.error("Error generating questions: ", error);
-    throw new Error("Failed to generating interview questions");
+    throw new Error("failed to generate interview questions");
   }
 }
 
@@ -82,7 +114,10 @@ export const anaylyzeResponse = async (question: string, answer: string): Promis
         "improvementSuggestions": string[]
       }`;
 
-      const result = await model.generateContent(prompt);
+      // use retry mechanism
+      const result = await retryWithExponentialBackoff(() => model.generateContent(prompt));
+
+      // const result = await model.generateContent(prompt);
       const text = await result.response.text();
 
       // clean and validate response
@@ -134,7 +169,9 @@ export const generateInterviewFeedback = async (interview: any): Promise<Feedbac
       "nextSteps": string[]
     }`;
 
-    const result = await model.generateContent(prompt);
+    // use retry mechanism
+    const result = await retryWithExponentialBackoff(() => model.generateContent(prompt));
+    // const result = await model.generateContent(prompt);
     const text = await result.response.text();
 
     // clean and validate response

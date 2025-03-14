@@ -65,6 +65,10 @@ const interviewSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    usedFallbackQuestions: {
+      type: Boolean,
+      default: false,
+    },
   },
   { timestamps: true }
 );

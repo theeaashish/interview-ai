@@ -4,8 +4,11 @@ import Interview from "@/models/Interview";
 import { getUserIdFromToken } from "@/lib/auth";
 import { anaylyzeResponse } from "@/lib/gemini";
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, context: { params: { id: string } }) {
     try {
+
+        const { params } = context;
+
         await connectDB();
         
         //get token from authorization
@@ -82,9 +85,13 @@ export async function POST(req: Request, { params }: { params: { id: string } })
             analysis,
             interview: {
                 _id: interview._id,
+                jobRole: interview.jobRole,
+                techStack: interview.techStack,
+                yearsOfExperience: interview.yearsOfExperience,
                 questions: interview.questions,
                 overallScore: interview.overallScore,
                 status: interview.status,
+                createdAt: interview.createdAt
             } 
         }, { status: 200 });
 
