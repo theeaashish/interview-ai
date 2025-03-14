@@ -4,6 +4,8 @@ export interface ISpeechRecognition {
     stop(): void;
     onresult: ((event: ISpeechRecognitionEvent) => void) | null;
     onerror: ((event: ISpeechRecognitionErrorEvent) => void) | null;
+    onstart: (() => void) | null;
+    onend: (() => void) | null;
     lang: string;
     continuous: boolean;
     interimResults: boolean;

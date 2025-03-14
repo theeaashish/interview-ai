@@ -177,25 +177,32 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
   // handle navigation between questions
   const handleNextQuestion = () => {
     if (currentIndex < interview.questions.length - 1) {
-      // stop recording if active
+      // Stop recording if active
       if (isRecording) {
         stopRecording();
       }
-
-      // save the current answer before moving to the next question
-      saveCurrentAnswer().then(() => {
-        setCurrentIndex(currentIndex - 1);
-        
-        // load the next question's answer if it exists
-        const nextQuestion = interview.questions[currentIndex + 1];
-        setUserAnswer(nextQuestion && nextQuestion.answer ? nextQuestion.answer : '');
-        setTranscript('');
-      }).catch(error => {
-        console.error('Error saving answer before navigation:', error);
-        setError('Faild to save your answer. Please try again');
-      });
+  
+      // Save the current answer before moving to the next question
+      saveCurrentAnswer()
+        .then(() => {
+          setCurrentIndex((prevIndex) => {
+            const newIndex = prevIndex + 1; // Corrected the increment
+            
+            // Load the next question's answer if it exists
+            const nextQuestion = interview.questions[newIndex];
+            setUserAnswer(nextQuestion?.answer || '');
+            setTranscript('');
+            
+            return newIndex; // Return the updated index
+          });
+        })
+        .catch((error) => {
+          console.error('Error saving answer before navigation:', error);
+          setError('Failed to save your answer. Please try again.');
+        });
     }
   };
+  
 
   const handlePreviousQuestion = () => {
     if (currentIndex > 0) {
@@ -384,8 +391,8 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
 
   return (
-    <div>
-      hello
-    </div>
+   <div>
+    hello
+   </div>
   )
 }

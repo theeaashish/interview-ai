@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";  
 import Interview from "@/models/Interview";
 import { getUserIdFromToken } from "@/lib/auth";
-import { anaylyzeResponse } from "@/lib/gemini";
+import { analyzeResponse } from "@/lib/gemini";
 
 export async function POST(req: Request, context: { params: { id: string } }) {
     try {
@@ -40,7 +40,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
         }
 
         // verify that the interview belongs to the user
-        if (interview.user.toString() !== interviewId) {
+        if (interview.user.toString() !== userId) {
             return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
         }
 
@@ -52,7 +52,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
         // analyze the answer using gemini
         console.log(`Analyzing answer for question ${questionIndex}: "${answer.substring(0, 50)}..."`);
         const question = interview.questions[questionIndex].text;
-        const analysis = await anaylyzeResponse(question, answer);
+        const analysis = await analyzeResponse(question, answer);
         console.log(`Analysis complete with score: ${analysis.score}`);
 
         // update the interview with the answer and analysis
@@ -97,6 +97,6 @@ export async function POST(req: Request, context: { params: { id: string } }) {
 
     } catch (error) {
         console.error('Error submitting answer: ', error);
-        return NextResponse.json({ message: 'internal server error' }, { status: 500 });
+        return NextResponse.json({ message: 'internal server error', error: String(error) }, { status: 500 });
     }
 }

@@ -90,7 +90,7 @@ export const generateInterviewQuestions = async (context: string): Promise<strin
   }
 }
 
-export const anaylyzeResponse = async (question: string, answer: string): Promise<AnalysisResult> => {
+export const analyzeResponse = async (question: string, answer: string): Promise<AnalysisResult> => {
   try {
     const model = genAI.getGenerativeModel({
       model: "gemini-2.0-flash",
