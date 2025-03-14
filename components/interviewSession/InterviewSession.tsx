@@ -247,7 +247,7 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
       }
 
       // update the interview session in database
-      const response = await fetch(`/api/interviews/${interview._id}/answer`, {
+      const response = await fetch(`/api/interview/${interview._id}/answer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -326,7 +326,7 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
       // get the updated interview data
       const data = await response.json();
-      console.log(`Answer submitting for question ${currentIndex} with score: ${data.anlysis?.score}`);
+      console.log(`Answer submitting for question ${currentIndex} with score: ${data.analysis?.score}`);
 
       // update the present component with the updated interview data
       if (onInterviewUpdate && data.interview) {
@@ -335,7 +335,7 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
       // move to the next question
       if (interview.questions && Array.isArray(interview.questions) && currentIndex < interview.questions.length - 1) {
-        setCurrentIndex(currentIndex - 1);
+        setCurrentIndex(currentIndex + 1);
 
         // check if the next question already has the answer
         const nextQuestion = interview.questions[currentIndex + 1];
@@ -391,8 +391,8 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
 
   return (
-   <div>
-    hello
-   </div>
+    <div>
+      hello
+  </div>
   )
 }
