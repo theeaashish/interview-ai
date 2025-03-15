@@ -2,6 +2,8 @@
 import { useState, useRef, useEffect } from "react";
 import Webcam from 'react-webcam';
 import { ISpeechRecognition, ISpeechRecognitionEvent, ISpeechRecognitionErrorEvent, Question, Interview, InterviewSessionProps } from "./SessionTypes";
+import PrevNextBtn from "./PrevNextBtn";
+import RecordingBtn from "./RecordingBtn";
 
 export default function InterviewSession({interview, onInterviewUpdate}: InterviewSessionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -391,8 +393,94 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
 
   return (
-    <div>
-      hello
-  </div>
+    <div className="flex flex-col gap-6 p-6 text-white bg-[var(--input-bg)] rounded-lg shadow-sm">
+      {/* progress bar */}
+      <div className="w-full rounded-full h-2.5 bg-gray-500">
+        <div className="bg-[var(--theme-color)] h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>
+      </div>
+
+      {/*previous, next btn question length  */}
+
+      <div className="flex justify-between items-center">
+        <div className="text-sm text-gray-400">
+          Question {currentIndex + 1} of {interview.questions.length}
+        </div>
+        
+        <div className="flex gap-2">
+          <PrevNextBtn onClick={handlePreviousQuestion} disabled={currentIndex === 0 || isSubmitting} classes={currentIndex === 0 || isSubmitting} label="Previous"/>
+          <PrevNextBtn onClick={handleNextQuestion} disabled={currentIndex === interview.questions.length - 1 || isSubmitting} classes={currentIndex === interview.questions.length - 1 || isSubmitting} label="Next" />
+        </div>
+      </div>
+
+      <div className="flex flex-col lg:flex-row gap-6">
+        {/* web cam section */}
+        <div className="lg:w-1/3">
+          <div className="relative">
+            <Webcam audio={true} ref={webcamRef} className="rounded-lg w-full h-[325px] shadow-md bg-zinc-900" videoConstraints={{ width:640, height:480, facingMode: 'user'}}/>
+            { isRecording && (
+              <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs flex items-center">
+                <span className="inline-block w-2 h-2 bg-white rounded-full mr-1 animate-pulse"></span>
+                REC {formatTime(recordingTime)}
+              </div>
+            ) }
+          </div>
+
+          <RecordingBtn style="btn" trueText="Stop Recording" falseText="Start Voice Recording" color="bg-red-500 hover:bg-red-600" onClick={handleSpeechToText} isRecording={isRecording} disabled={isSubmitting} />
+          <div className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+            {isRecording 
+              ? 'Speak clearly into your microphone. Your speech will be transcribed automatically.' 
+              : 'Click the button above to start recording your answer.'}
+          </div>
+        </div>
+
+        {/* interview section */}
+        <div className="lg:w-2/3 space-y-6">
+           {/* questioin appear */}
+          <div className="bg-[var(--theme-color)] p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold mb-4">Current Question</h2>
+            <p className="text-lg">{interview.questions[currentIndex].text}</p>
+          </div>
+
+          <div className="bg-[var(--theme-color)] p-6 rounded-lg shadow-md">
+            <h2 className="text-xl font-bold mb-4">Your Answer</h2>
+            <textarea className="w-full p-4 bg-zinc-800 outline-none rounded-md border h-32" value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} 
+            placeholder="Your answer will appear here as you speak. You can also type or edit your answer." 
+            disabled={isSubmitting} />
+
+            {isRecording && transcript && (
+              <div className="mt-2 text-sm text-gray-300 bg-gray-700 p-2 rounded">
+                <span className="font-medium">Currently transcribing:</span> {transcript}
+              </div>
+            )}
+
+            {error && (
+              <div className="mt-2 text-red-500 text-sm bg-red-900/20 p-2 rounded">
+                {error}
+              </div>
+            )}
+
+            {/* submit answer */}
+
+            <div className="flex justify-between items-center mt-4">
+              <div className="text-sm text-zinc-300 font-medium">
+                {interview.questions[currentIndex].answer ? 'This question has been asnwered. You can edit your answer.' :  ''}
+              </div>
+
+              {/* submit answer btn */}
+
+              <div>
+               <RecordingBtn color="bg-green-600 cursor-not-allowed" style="bg-green-500 hover:bg-green-600" trueText="Submitting..." falseText="Submit Answer" isRecording={isSubmitting} onClick={handleSubmitAnswer} disabled={isSubmitting || !userAnswer.trim()}/>
+              </div>
+
+            </div>
+
+
+          </div>
+   
+
+        </div>
+      </div>
+
+    </div>
   )
 }

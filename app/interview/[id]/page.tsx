@@ -120,7 +120,7 @@ export default function InterviewPage( { params }: InterviewPageProps ) {
   }
 
   return (
-    <div className="text-white p-6">
+    <div className="text-white py-6 px-22">
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <div>
