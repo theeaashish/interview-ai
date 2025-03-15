@@ -474,13 +474,9 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
             </div>
 
-
           </div>
-   
-
         </div>
       </div>
-
     </div>
   )
 }
