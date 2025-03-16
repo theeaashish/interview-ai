@@ -12,7 +12,7 @@ const NewInterviewForm = ({ onClose, onStartInterview }: NewInterviewFormProps) 
 
   const [jobRole, setJobRole] = useState('');
   const [techStack, setTechStack] = useState('');
-  const [yearsOfExperience, setYearsOfExperience] = useState(0);
+  const [yearsOfExperience, setYearsOfExperience] = useState<number>(0);
   const [resumeFile, setResumeFile] = useState<File | null>(null);
   const [fileError, setFileError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -111,7 +111,7 @@ const NewInterviewForm = ({ onClose, onStartInterview }: NewInterviewFormProps) 
           <InterviwFormInputs label="Tech-Stack (comma-seperated)" type="text" placeholder="e.g. React, NodeJs, TypeScript" value={techStack} onChange={(e) => setTechStack(e.target.value)} />
 
           {/* years of experience */}
-          <InterviwFormInputs label="Years of Experience" type="number" min={0} max={50} value={yearsOfExperience} onChange={(e) => setYearsOfExperience(Number(e.target.value))} />
+          <InterviwFormInputs label="Years of Experience" type="text" min={0} max={50} value={yearsOfExperience} onChange={(e) => setYearsOfExperience(Number(e.target.value))} />
 
           {/* resume upload */}
           <div className="flex flex-col w-[100%]">

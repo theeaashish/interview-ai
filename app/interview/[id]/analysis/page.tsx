@@ -4,7 +4,9 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Loader from "@/components/Loader";
 import ErrorInterview from "@/components/errors/ErrorInterview";
-import InterviewBtn from "@/components/interview/InterviewBtn";
+import MainButton from "@/components/AnalysisPage/MainButton";
+import QuestionList from "@/components/AnalysisPage/QuestionList";
+import QuizAndAnswer from "@/components/AnalysisPage/QuizAndAnswer";
 
 interface AnalysisProps {
   params: {
@@ -102,7 +104,7 @@ export default function AnalysisPage({ params }: AnalysisProps) {
     return <ErrorInterview bg="yellow" errors={'No questions found for this interview'}/>
   }
 
-  const activeQuestions = interview.questions[activeQuestionIndex];
+  const activeQuestion = interview.questions[activeQuestionIndex];
 
 
   return (
@@ -128,14 +130,34 @@ export default function AnalysisPage({ params }: AnalysisProps) {
                 )}
 
                 {interview.status === 'in-progress' && (
-                <InterviewBtn text="Continue Interview" onClick={() => router.push(`/interview/${interviewId}`)}/>
+                  <MainButton text="Continue Interview" color="blue" onClick={() => router.push(`/interview/${interviewId}`)}/>
                 )}
 
+                <MainButton text="Dashboard" color="gray" onClick={() => router.push('/dashboard')}/>
             </div>
+        </div>
 
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+
+        {/* question list sidebar */}
+        <QuestionList activeQuestionIndex={activeQuestionIndex} interview={interview} onClick={(index) => setActiveQuestionIndex(index)}/>
+
+
+          {/* question analysis */}
+          <div className="md:col-span-3 space-y-6">
+            {/* questions and answer */}
+            <QuizAndAnswer onClick={() => router.push(`/interview/${interviewId}`)} interview={interview} scoreLabel={getScoreLabel} activeQuestion={activeQuestion} activeQuestionIndex={activeQuestionIndex} />
+
+
+
+
+          </div>
 
 
         </div>
+
+
     </div>
   )
 }
