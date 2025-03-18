@@ -443,7 +443,7 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
           <div className="bg-[var(--theme-color)] p-6 rounded-lg shadow-md">
             <h2 className="text-xl font-bold mb-4">Your Answer</h2>
-            <textarea className="w-full p-4 bg-zinc-800 outline-none rounded-md border h-32" value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} 
+            <textarea className="w-full p-4 bg-zinc-800 outline-none rounded-md border min-h-32" value={userAnswer} onChange={(e) => setUserAnswer(e.target.value)} 
             placeholder="Your answer will appear here as you speak. You can also type or edit your answer." 
             disabled={isSubmitting} />
 
