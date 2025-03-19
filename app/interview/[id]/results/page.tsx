@@ -5,6 +5,10 @@ import Link from "next/link";
 import Loader from "@/components/Loader";
 import ErrorInterview from "@/components/errors/ErrorInterview";
 import ResultsNav from "@/components/ResultsPage/ResultsNav";
+import ResultTabBtn from "@/components/ResultsPage/ResultTabBtn";
+import InterviewDetails from "@/components/ResultsPage/InterviewDetails";
+import OverviewTabData from "@/components/ResultsPage/OverviewTabData";
+import FeedbackTabData from "@/components/ResultsPage/FeedbackTabData";
 
 interface ResultsPageProps {
   params: {
@@ -154,8 +158,24 @@ export default function ResultsPage({ params }: ResultsPageProps) {
         <ResultsNav interviewId={interviewId} handlePrint={handlePrint} handleShare={handleShare} />
 
         {/* tabs */}
-        
+        <div className="border-b border-zinc-600 mb-6">
+          <nav className="flex mb-4">
+            <ResultTabBtn tabText="overview" onClick={() => setActiveTab('overview')} activeTab={activeTab} text="Overview"/>
+            <ResultTabBtn tabText="feedback" onClick={() => setActiveTab('feedback')} activeTab={activeTab} text="Detailed Feedback"/>
+          </nav>
+        </div>
 
+        <div ref={resultsRef}>
+          {/* interview details */}
+          <InterviewDetails interview={interview}/>
+
+          {/* overview tab */}
+          {activeTab === 'overview' && <OverviewTabData interview={interview} scoreLabel={getScoreLabel} scoreColor={getScoreColor}/>}
+          
+          {/* Feedback tab */}
+          {activeTab === 'feedback' && <FeedbackTabData  interview={interview}/>}
+        </div>
+        
     </div>
   )
 }
