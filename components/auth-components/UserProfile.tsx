@@ -5,12 +5,6 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 
-interface UserData {
-  name: string;
-  email: string;
-  avatar?: string;
-}
-
 const UserProfile = () => {
   const router = useRouter();
   const pathname = usePathname();

@@ -59,11 +59,11 @@ export default function InterviewList() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-green-900/30 text-green-500">Completed</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-emerald-900/30 border border-emerald-700/30 text-emerald-400">Completed</span>;
       case 'in-progress':
-        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-blue-900/30 text-blue-500">In Progress</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-blue-900/30 border border-blue-700/30 text-blue-400">In Progress</span>;
       default:
-        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-900/30 text-gray-500">Pending</span>;
+        return <span className="px-3 py-1 text-xs font-bold rounded-full bg-gray-900/30 text-gray-500">Pending</span>;
     }
   }
 
@@ -104,7 +104,7 @@ export default function InterviewList() {
       ) : (
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4">
           { interviews.map((interview) => (
-            <div key={interview._id} className="bg-[var(--input-bg)] border border-[#352a31] max-w-[600px] max-sm:w-full rounded-xl shadow-md px-6 py-8">
+            <div key={interview._id} className="bg border border-[#352a31] max-w-[600px] max-sm:w-full rounded-xl shadow-md px-6 py-8">
            
              {/* // job role, status */}
               <div className="flex justify-between items-center mb-4">
@@ -113,9 +113,11 @@ export default function InterviewList() {
             </div>
 
             {/* // experience, techStack, progress and score */}
-              <div className="text-gray-400 text-md mb-4 flex flex-col gap-0 font-medium">
+              <div className="text-gray-400 text-md mb-4 flex flex-col gap-2 font-medium">
                 <p>Tech Stack</p>
-                <p className="text-gray-200">{interview.techStack.join(', ')}</p>
+                <p className="text-gray-200 flex gap-2">{interview.techStack.map((tech: string, index: number) => (
+                  <span className="text-xs px-2.5 py-1 rounded-full bg-[#352a31]/50 border border-[#453841]/50 text-gray-300" key={index}>{tech}</span>
+                ))}</p>
                <div className="flex gap-20 mt-5">
                <div className="">
                <p>Experience</p>

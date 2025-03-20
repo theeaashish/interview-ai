@@ -393,7 +393,7 @@ export default function InterviewSession({interview, onInterviewUpdate}: Intervi
 
 
   return (
-    <div className="flex flex-col gap-6 p-6 text-white bg-[var(--input-bg)] rounded-lg shadow-sm">
+    <div className="flex flex-col gap-6 p-6 text-white bg rounded-lg shadow-sm">
       {/* progress bar */}
       <div className="w-full rounded-full h-2.5 bg-gray-500">
         <div className="bg-[var(--theme-color)] h-2.5 rounded-full transition-all duration-300" style={{ width: `${progress}%` }}></div>

@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import MainBtn from '@/components/auth-components/MainBtn';
 import Input from '@/components/auth-components/Input';
 import OAuthBtn from '@/components/auth-components/OAuthBtn';
+import Image from 'next/image';
 
 export default function SignupPage() {
   const router = useRouter();
@@ -84,18 +85,18 @@ export default function SignupPage() {
 
   return (
     <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10 relative">
-      <img
-        className="w-[269px] h-[299px] absolute left-6 top-4"
+      <Image width={200} height={200}
+        className="absolute left-6 top-4"
         src="/images/circle-shape3.svg"
         alt="circle-shape"
       />
-      <img
-        className="w-[229px] h-[249px] absolute right-6 top-60"
+      <Image width={200} height={200}
+        className="absolute right-6 top-60"
         src="/images/circle-shape2.svg"
         alt="circle-shape"
       />
-      <img
-        className="w-[229px] h-[249px] absolute left-6 bottom-0"
+      <Image width={200} height={200}
+        className="absolute left-6 bottom-0"
         src="/images/circle-shape1.svg"
         alt="circle-shape"
       />

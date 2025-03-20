@@ -6,6 +6,7 @@ import MainBtn from '@/components/auth-components/MainBtn';
 import Input from '@/components/auth-components/Input';
 import OAuthBtn from '@/components/auth-components/OAuthBtn';
 import { useAuth } from '@/context/AuthContext';
+import Image from 'next/image';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -14,7 +15,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [debug, setDebug] = useState('');
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   // Check if already logged in
@@ -27,14 +27,10 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
-    setDebug('');
     setLoading(true);
     setLoginSuccess(false);
 
     try {
-      // Log the request
-      setDebug(prev => prev + `Sending request to /api/auth/login with email: ${email}\n`);
-      
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: {
@@ -44,10 +40,6 @@ export default function LoginPage() {
       });
 
       const data = await response.json();
-      
-      // Log the response
-      setDebug(prev => prev + `Response status: ${response.status}\n`);
-      setDebug(prev => prev + `Response data: ${JSON.stringify(data)}\n`);
 
       if (!response.ok || !data.success) {
         throw new Error(data.message || 'Login failed');
@@ -55,15 +47,17 @@ export default function LoginPage() {
 
       // Use the auth context to handle login
       login(data.token, data.user);
-      setDebug(prev => prev + `Login successful, redirecting to dashboard...\n`);
       
       // Add a small delay before redirecting
       setTimeout(() => {
         router.push('/dashboard');
       }, 1000);
-    } catch (error: any) {
-      setError(error.message || 'An error occurred during login');
-      setDebug(prev => prev + `Error: ${error.message}\n`);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('An error occurred during login');
+      }
     } finally {
       setLoading(false);
     }
@@ -71,18 +65,18 @@ export default function LoginPage() {
 
   return (
     <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10 relative">
-      <img
-        className="w-[269px] h-[299px] absolute left-6 top-4"
+      <Image width={200} height={200}
+        className="absolute left-6 top-4"
         src="/images/circle-shape3.svg"
         alt="circle-shape"
       />
-      <img
-        className="w-[229px] h-[249px] absolute right-6 top-60"
+      <Image width={200} height={200}
+        className=" absolute right-6 top-60"
         src="/images/circle-shape2.svg"
         alt="circle-shape"
       />
-      <img
-        className="w-[229px] h-[249px] absolute left-6 bottom-0"
+      <Image width={200} height={200}
+        className="absolute left-6 bottom-0"
         src="/images/circle-shape1.svg"
         alt="circle-shape"
       />

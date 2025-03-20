@@ -2,10 +2,16 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-interface AuthContextType {
+interface User {
+  name: string;
+  email: string;
+  avatar?: string;
+}
+
+interface AuthContextType<T = User> {
   isAuthenticated: boolean;
-  userData: any | null;
-  login: (token: string, userData: any) => void;
+  userData: T | null;
+  login: (token: string, userData: T) => void;
   logout: () => void;
 }
 
@@ -13,7 +19,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userData, setUserData] = useState<any | null>(null);
+  const [userData, setUserData] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
@@ -31,7 +37,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
-  const login = (token: string, userData: any) => {
+  const login = (token: string, userData: User) => {
     localStorage.setItem("auth_token", token);
     localStorage.setItem("user_data", JSON.stringify(userData));
     setIsAuthenticated(true);

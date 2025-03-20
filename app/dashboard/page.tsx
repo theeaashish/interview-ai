@@ -7,7 +7,7 @@ import Loader from '@/components/Loader';
 import InterviewBtn from '@/components/interview/InterviewBtn';
 // import Button from '@/components/Button';
 
-const dashboard = () => {
+const Dashboard = () => {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +33,7 @@ const dashboard = () => {
     )
   }
   
-  const handleCreateInterview = (id: string) => {
+  const handleCreateInterview = () => {
     router.push(`/interview/new`);
   }
 
@@ -62,4 +62,4 @@ const dashboard = () => {
   )
 }
 
-export default dashboard
+export default Dashboard

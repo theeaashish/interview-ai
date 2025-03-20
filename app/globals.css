@@ -81,6 +81,10 @@ input:-webkit-autofill:active {
   background: #464646;
 }
 
+.bg {
+  background: linear-gradient(90deg, rgba(23,20,21,1) 0%, rgba(35,25,30,1) 100%);
+}
+
 .arrow-div {
   animation: moveUpDown 3s ease-in-out infinite;
 }

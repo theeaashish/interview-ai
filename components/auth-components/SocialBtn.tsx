@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 
 interface SocialBtnProps {
     src: string;
@@ -10,10 +11,9 @@ const SocialBtn = ({src, alt, name}: SocialBtnProps) => {
   return (
     <div className="w-full">
       <button className="btn-primary">
-        <img
+        <Image width={20} height={20}
           src={src}
           alt={alt}
-          className="w-[24px] h-[24px]"
         />
         {name}
       </button>

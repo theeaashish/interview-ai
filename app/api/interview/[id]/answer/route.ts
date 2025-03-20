@@ -1,15 +1,18 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/lib/mongodb";  
 import Interview from "@/models/Interview";
 import { getUserIdFromToken } from "@/lib/auth";
 import { analyzeResponse } from "@/lib/gemini";
 
-export async function POST(req: Request, context: { params: { id: string } }) {
+export async function POST(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
     try {
-        const { params } = context;
-        console.log('Received request for interview:', params.id);
+        const { id } = params;
+        console.log('Received request for interview:', id);
 
-        // Connect to MongoDB
+        // connect to MongoDB
         try {
             await connectDB();
             console.log('MongoDB connected successfully');
@@ -21,8 +24,8 @@ export async function POST(req: Request, context: { params: { id: string } }) {
             }, { status: 500 });
         }
         
-        // Get and validate token
-        const authHeader = req.headers.get('Authorization');
+        // get and validate token
+        const authHeader = request.headers.get('Authorization');
         const token = authHeader?.startsWith('Bearer ') ? authHeader.substring(7) : null;
 
         if (!token) {
@@ -30,7 +33,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
             return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
         }
 
-        // Get user ID from token
+        // get user ID from token
         let userId;
         try {
             userId = getUserIdFromToken(token);
@@ -43,15 +46,15 @@ export async function POST(req: Request, context: { params: { id: string } }) {
             }, { status: 401 });
         }
 
-        // Get interview ID from params
-        const interviewId = params.id;
+        // get interview ID from params
+        const interviewId = id;
         console.log('Looking for interview:', interviewId);
 
-        // Parse request body
-        const { questionIndex, answer } = await req.json();
+        // parse request body
+        const { questionIndex, answer } = await request.json();
         console.log('Received answer for question index:', questionIndex);
 
-        // Validate request body
+        // validate request body
         if (questionIndex === undefined || !answer) {
             return NextResponse.json({ 
                 message: 'Question index and answer are required',
@@ -59,20 +62,20 @@ export async function POST(req: Request, context: { params: { id: string } }) {
             }, { status: 400 });
         }
 
-        // Find the interview
+        // find the interview
         const interview = await Interview.findById(interviewId);
         if (!interview) {
             console.log('Interview not found:', interviewId);
             return NextResponse.json({ message: 'Interview not found' }, { status: 404 });
         }
 
-        // Verify that the interview belongs to the user
+        // verify that the interview belongs to the user
         if (interview.user.toString() !== userId) {
             console.log('Unauthorized access attempt:', { userId, interviewUserId: interview.user });
             return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
         }
 
-        // Check if the question index is valid
+        // check if the question index is valid
         if (questionIndex < 0 || questionIndex >= interview.questions.length) {
             return NextResponse.json({ 
                 message: 'Invalid question index',
@@ -81,18 +84,18 @@ export async function POST(req: Request, context: { params: { id: string } }) {
             }, { status: 400 });
         }
 
-        // Analyze the answer using Gemini
+        // analyze the answer using Gemini
         try {
             console.log(`Analyzing answer for question ${questionIndex}: "${answer.substring(0, 50)}..."`);
             const question = interview.questions[questionIndex].text;
             const analysis = await analyzeResponse(question, answer);
             console.log(`Analysis complete with score: ${analysis.score}`);
 
-            // Update the interview with the answer and analysis
+            // update the interview with the answer and analysis
             interview.questions[questionIndex].answer = answer;
             interview.questions[questionIndex].analysis = analysis;
 
-            // Calculate the current overall score based on answered questions
+            // calculate the current overall score based on answered questions
             let totalScore = 0;
             let answeredQuestions = 0;
 
@@ -103,16 +106,16 @@ export async function POST(req: Request, context: { params: { id: string } }) {
                 }
             }
 
-            // Update the overall score
+            // update the overall score
             if (answeredQuestions > 0) {
                 interview.overallScore = Math.round(totalScore / answeredQuestions);
             }
 
-            // Save the updated interview
+            // save the updated interview
             await interview.save();
             console.log(`Interview updated successfully for question: ${questionIndex}`);
 
-            // Return the updated interview data
+            // return the updated interview data
             return NextResponse.json({
                 message: 'Answer submitted successfully',
                 analysis,
@@ -139,7 +142,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
     } catch (error) {
         console.error('Error in answer submission route:', error);
         
-        // Check for specific error types
+        // check for specific error types
         if (error instanceof Error) {
             if (error.message.includes('GEMINI_API_KEY')) {
                 return NextResponse.json({ 
@@ -155,7 +158,7 @@ export async function POST(req: Request, context: { params: { id: string } }) {
             }
         }
 
-        // Default error response
+        // default error response
         return NextResponse.json({ 
             message: 'Internal server error', 
             error: error instanceof Error ? error.message : 'Unknown error occurred' 
