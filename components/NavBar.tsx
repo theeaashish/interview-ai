@@ -4,21 +4,24 @@ import Image from "next/image";
 import Button from "./Button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import UserProfile from "./auth-components/UserProfile";
+import { useAuth } from "@/context/AuthContext";
 
 const NavBar = () => {
   const pathname = usePathname();
+  const { isAuthenticated } = useAuth();
 
   return (
     <nav className="min-h-[100px] items-center flex sm:px-20 px-8 justify-between">
       <div className="flex items-center gap-3">
         <Link href={"/"} className="flex items-center gap-3">
-        <Image
-          width={35}
-          height={35}
-          src="/images/logo.svg"
-          alt="Logo"
-        />
-        <h2 className="sm:text-3xl text-2xl text-white font-medium">interwise</h2>
+          <Image
+            width={35}
+            height={35}
+            src="/images/logo.svg"
+            alt="Logo"
+          />
+          <h2 className="sm:text-3xl text-2xl text-white font-medium">interwise</h2>
         </Link>
       </div>
       <div className="max-lg:hidden">
@@ -49,7 +52,13 @@ const NavBar = () => {
           src="/images/download.svg"
           alt=""
         />
-        <Button name="Let's Talk" hidden="hidden" />
+        {isAuthenticated ? (
+          <UserProfile />
+        ) : (
+          <Link href="/login">
+            <Button name="Let's Talk" />
+          </Link>
+        )}
       </div>
     </nav>
   );

@@ -4,6 +4,7 @@ import localfont from "next/font/local";
 import { Metadata } from "next";
 import Image from "next/image";
 import NavBarWrapper from "@/components/NavBarWrapper";
+import { AuthProvider } from "@/context/AuthContext";
 
 const mazzard = localfont({
   src: [
@@ -47,28 +48,27 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-
   return (
-      <html lang="en" className="bg-[var(--background)]">
-        <body className={mazzard.variable + " " + radis.variable}>
-
+    <html lang="en" className="bg-[var(--background)]">
+      <body className={`${mazzard.variable} ${radis.variable} font-sans`}>
+        <AuthProvider>
           <div className="absolute -top-30 left-0 -z-10">
-          <Image width={700} height={700} src="/images/bg-shade.png" alt="" />
-        </div>
-        <div className="absolute right-0 -z-10">
-          <Image
-            className="bottom-0 right-0 -z-10"
-            width={700}
-            height={700}
-            src="/images/bg-shade2.png"
-            alt=""
-          />
-        </div>
+            <Image width={700} height={700} src="/images/bg-shade.png" alt="" />
+          </div>
+          <div className="absolute right-0 -z-10">
+            <Image
+              className="bottom-0 right-0 -z-10"
+              width={700}
+              height={700}
+              src="/images/bg-shade2.png"
+              alt=""
+            />
+          </div>
 
-        <NavBarWrapper />
+          <NavBarWrapper />
           {children}
-        </body>
-      </html>
+        </AuthProvider>
+      </body>
+    </html>
   );
 } 

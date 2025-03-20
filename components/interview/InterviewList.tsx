@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "../Loader";
-import InterviewBtn from "./InterviewBtn";
 import ContinueBtn from "./ContinueBtn";
 
 interface Interview {
@@ -60,11 +59,11 @@ export default function InterviewList() {
   const getStatusBadge = (status: string) => {
     switch (status) {
       case 'completed':
-        return <span className="px-2 py-1 text-xs rounded-full bg-green-100 text-green-800">Completed</span>;
+        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-green-900/30 text-green-500">Completed</span>;
       case 'in-progress':
-        return <span className="px-2 py-1 text-xs rounded-full bg-blue-100 text-blue-800">In Progress</span>;
+        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-blue-900/30 text-blue-500">In Progress</span>;
       default:
-        return <span className="px-2 py-1 text-xs rounded-full bg-gray-100 text-gray-800">Pending</span>;
+        return <span className="px-2.5 py-1 text-xs font-bold rounded-full bg-gray-900/30 text-gray-500">Pending</span>;
     }
   }
 
@@ -80,9 +79,7 @@ export default function InterviewList() {
     router.push(`/interview/${id}/analysis`);
   }
   
-  const handleCreateInterview = (id: string) => {
-    router.push(`/interview/new`);
-  }
+
 
   if (loading) {
     return <Loader/>
@@ -90,10 +87,7 @@ export default function InterviewList() {
 
   return (
     <div className="text-white space-y-6">
-      <div className="flex justify-between items-center">
-        <h2 className="text-2xl font-bold">Your Interviews</h2>
-        <InterviewBtn text="Create New Interview" onClick={handleCreateInterview} />
-      </div>
+
 
       { error && (
         <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
@@ -105,34 +99,57 @@ export default function InterviewList() {
         <div className="w-full h-[40vh] flex items-center justify-center">
           <div className="text-center py-8 w-[40vw]  bg-[var(--input-bg)] rounded-lg">
             <p className="text-gray-400 mb-4">No interviews found. Start a new interview to practice!</p>
-            <InterviewBtn onClick={handleCreateInterview} text="Create Your First Interview" />
           </div>
         </div>
       ) : (
         <div className="grid lg:grid-cols-2 xl:grid-cols-3 gap-4">
           { interviews.map((interview) => (
-            <div key={interview._id} className="bg-[var(--input-bg)] max-w-[600px] max-sm:w-full rounded-xl shadow-md px-6 py-8">
+            <div key={interview._id} className="bg-[var(--input-bg)] border border-[#352a31] max-w-[600px] max-sm:w-full rounded-xl shadow-md px-6 py-8">
            
              {/* // job role, status */}
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-md font-bold uppercase">{interview.jobRole}</h3>
+                <h3 className="text-xl font-bold uppercase">{interview.jobRole}</h3>
                 {getStatusBadge(interview.status)}
             </div>
 
             {/* // experience, techStack, progress and score */}
-              <div className="text-[var(--nav-text)] text-sm mb-4 flex flex-col gap-2 font-semibold">
-                <p>Tech Stack: {interview.techStack.join(', ')}</p>
-                <p>Experience: {interview.yearsOfExperience} { interview.yearsOfExperience <= 1 ? "Year" : "Years" }</p>
-                <p>Date: {new Date(interview.createdAt).toLocaleDateString()}</p>
-                {interview.status === 'in-progress' && ( <p>Score: <span>{interview.overallScore}</span></p> )}
+              <div className="text-gray-400 text-md mb-4 flex flex-col gap-0 font-medium">
+                <p>Tech Stack</p>
+                <p className="text-gray-200">{interview.techStack.join(', ')}</p>
+               <div className="flex gap-20 mt-5">
+               <div className="">
+               <p>Experience</p>
+               <p className="text-gray-200">{interview.yearsOfExperience} { interview.yearsOfExperience <= 1 ? "Year" : "Years" }</p>
+               </div>
+               <div>
+               <p>Date</p>
+               <p className="text-gray-200">{new Date(interview.createdAt).toLocaleDateString()}</p>
+               </div>
+               <div>
+
+               {interview.status === 'in-progress' && (
+                  <div>
+
+                      <p>Score</p>
+                     <p className="text-2xl font-bold"> <span className={interview.overallScore >= 70 ? 'text-green-500' : interview.overallScore >= 50 ? 'text-yellow-500' : 'text-red-500'}>{interview.overallScore}</span> </p>
+
+                  </div> )}
+
                 {interview.status === 'completed' && (
-                  <p>Score: <span className={interview.overallScore >= 70 ? 'text-green-500' : interview.overallScore >= 50 ? 'text-yellow-500' : 'text-red-500'}>{interview.overallScore}</span></p>
-                )}
+                  <div>
+                    
+                      <p>Score</p>
+                      <p className="text-2xl font-bold"> <span className={interview.overallScore >= 70 ? 'text-green-500' : interview.overallScore >= 50 ? 'text-yellow-500' : 'text-red-500'}>{interview.overallScore}</span> </p>
+
+                  </div> )}
+               </div>
+                
+               </div>
               </div>
 
               {/* // buttons for continue, view results, view analysis, and start new interview */}
 
-              <div className="flex gap-4 flex-wrap relative">
+              <div className="flex mt-4 gap-4 flex-wrap relative">
                 {interview.status === 'in-progress' && (
                   <>
                   {/* continue btn */}
