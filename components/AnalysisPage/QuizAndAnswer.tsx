@@ -17,7 +17,7 @@ const QuizAndAnswer = ({
   onClick,
 }: QuizAndAnswerProps) => {
   return (
-    <div className="bg-[var(--input-bg)] rounded-lg shadow-md p-6">
+    <div className="bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden p-6">
       <div className="flex justify-between items-start mb-4">
         <h2 className="text-xl font-bold">
           Question {activeQuestionIndex + 1}
@@ -47,7 +47,7 @@ const QuizAndAnswer = ({
 
       <div className="mb-6">
         <h3 className="text-lg font-medium mb-2">Question:</h3>
-        <p className="p-3 bg-[var(--theme-color)] rounded-md">
+        <p className="p-3 bg-[var(--theme-color)]/10 rounded-md">
           {activeQuestion.text}
         </p>
       </div>
@@ -56,7 +56,7 @@ const QuizAndAnswer = ({
       <div>
         <h3 className="text-lg font-medium mb-2">Your Answer:</h3>
 
-        <div className="p-3 bg-[var(--theme-color)] rounded-md">
+        <div className="p-3 bg-[var(--theme-color)]/10 rounded-md">
           {activeQuestion.answer ? (
             <p>{activeQuestion.answer}</p>
           ) : (

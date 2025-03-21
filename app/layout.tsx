@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import Image from "next/image";
 import NavBarWrapper from "@/components/NavBarWrapper";
 import { AuthProvider } from "@/context/AuthContext";
+import InterviewNav from "@/components/interview/InterviewNav";
 
 const mazzard = localfont({
   src: [
@@ -64,7 +65,6 @@ export default function RootLayout({
               alt=""
             />
           </div>
-
           <NavBarWrapper />
           {children}
         </AuthProvider>

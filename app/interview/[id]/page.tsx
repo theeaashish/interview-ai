@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
 import ErrorInterview from "@/components/errors/ErrorInterview";
 import InterviewSession from "@/components/interviewSession/InterviewSession";
+import InterviewNav from "@/components/interview/InterviewNav";
 
 interface InterviewPageProps {
   params: {
@@ -120,20 +121,14 @@ export default function InterviewPage( { params }: InterviewPageProps ) {
   }
 
   return (
+    <>
+    <InterviewNav interview={interview}/>
     <div className="text-white py-6 px-22">
       <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-2xl font-bold">{interview.jobRole} Interview</h1>
-            <p className="text-gray-400">Teach Stack: {Array.isArray(interview.techStack) ? interview.techStack.join(', ') : 'Not Specified'} | Experience: {interview.yearsOfExperience}  {interview.yearsOfExperience <= 1 ? 'Year' : 'Years' } </p>
-          </div>
-            <button onClick={() => router.push('/dashboard')} className="text-sm cursor-pointer transition-all text-gray-400 hover:text-gray-600">
-             Back to Dashboard
-            </button>
-        </div>
       </div>
 
       <InterviewSession interview={interview} onInterviewUpdate={handleInterviewUpdate}/>
     </div>
+      </>
   )
 }

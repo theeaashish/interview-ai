@@ -12,7 +12,7 @@ const QuestionList = ({
   activeQuestionIndex,
 }: QuestionListProps) => {
   return (
-    <div className="md:col-span-1 bg-[var(--input-bg)] rounded-lg shadow-md p-4 h-fit">
+    <div className="md:col-span-1 bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden p-4 h-fit">
       <h2 className="text-lg font-semibold mb-3">Questions</h2>
       <div className="space-y-2 max-h-[70vh] overflow-y-auto pr-2">
         {interview.questions.map((question: any, index: number) => (
@@ -23,7 +23,7 @@ const QuestionList = ({
               !question.answer
                 ? "opacity-50 cursor-not-allowed bg-pink-300/10"
                 : activeQuestionIndex === index
-                ? "bg-[var(--theme-color)] text-zinc-300"
+                ? "bg-[var(--theme-color)]/30 text-zinc-300"
                 : "hover:bg-pink-300/30"
             }`}
           >
