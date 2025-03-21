@@ -13,7 +13,7 @@ const AnswerAnalysis = ({
   scoreColor,
 }: AnswerAnalysisProps) => {
   return (
-    <div className="bg-[var(--input-bg)] rounded-lg shadow-md p-6">
+    <div className="bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden p-6">
       <h2 className="text-xl font-bold mb-4">Analysis</h2>
 
       {/* technical and communication assasement */}

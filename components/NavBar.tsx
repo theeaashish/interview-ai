@@ -12,7 +12,7 @@ const NavBar = () => {
   const { isAuthenticated } = useAuth();
 
   return (
-    <nav className="min-h-[100px] items-center flex sm:px-20 px-8 justify-between">
+    <nav className="min-h-[100px] items-center flex sm:px-10 px-8 justify-between">
       <div className="flex items-center gap-3">
         <Link href={"/"} className="flex items-center gap-3">
           <Image

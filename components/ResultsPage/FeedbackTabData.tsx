@@ -2,7 +2,7 @@ import React from "react";
 
 const FeedbackTabData = ({ interview }: { interview: any }) => {
   return (
-    <div className="rounded-lg shadow-md p-6 bg-[var(--input-bg)]">
+    <div className="p-6 bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden">
       <h2 className="text-xl font-bold mb-4">Detailed Feedback</h2>
 
       <div className="mb-6">
