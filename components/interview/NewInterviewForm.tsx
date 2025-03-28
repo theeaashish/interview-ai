@@ -95,14 +95,14 @@ const NewInterviewForm = ({ onClose, onStartInterview }: NewInterviewFormProps) 
 
   return (
     <section className="flex w-[100%] h-screen">
-      <form onSubmit={handleSubmit} className="w-[50%] flex flex-col items-center justify-center">
+      <form onSubmit={handleSubmit} className="w-[50%] max-sm:w-full flex flex-col items-center justify-center">
 
         <div className="flex flex-col items-center justify-center mt-10">
           <h1 className="text-4xl font-semibold">Welcome Buddy!</h1>
           <p>Create your interview to start your journey!</p>
         </div>
 
-        <div className="flex items-center rounded-xl flex-col gap-4 w-[55%] p-4 min-h-[70%] mt-6">
+        <div className="flex items-center rounded-xl flex-col gap-4 w-[55%] max-sm:w-full max-sm:px-8 p-4 min-h-[70%] mt-6">
 
           {/* job role input */}
           <InterviwFormInputs label="Job Role" type="text" placeholder="e.g Frontend Develeoper" value={jobRole} onChange={(e) => setJobRole(e.target.value)}/>

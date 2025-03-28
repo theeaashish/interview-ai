@@ -8,7 +8,7 @@ interface BtnProps {
 
 const MainBtn = ({type, name, disabled}: BtnProps) => {
   return (
-    <button type={type} disabled={disabled} className="w-[50vw] h-[64px] rounded-[8px] font-bold btn duration-400 cursor-pointer transition-all">
+    <button type={type} disabled={disabled} className="w-[50vw] max-sm:w-full h-[64px] rounded-[8px] font-bold btn duration-400 cursor-pointer transition-all">
           {name}
     </button>
   )

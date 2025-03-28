@@ -580,7 +580,7 @@ export default function InterviewSession({
                 <span className="h-5 w-1 bg-[#b87a9c] rounded-full"></span>
                 Current Question
               </h2>
-              <p className="text-lg">
+              <p className="text-lg max-sm:text-sm">
                 {interview.questions[currentIndex].text}
               </p>
             </div>

@@ -3,7 +3,7 @@ import FeatureBox from './FeatureBox'
 
 const FormFeature = () => {
   return (
-    <div className="w-[50%] h-screen flex flex-col items-center justify-center gap-10">
+    <div className="w-[50%] max-sm:hidden h-screen flex flex-col items-center justify-center gap-10">
         <div className="flex items-center justify-center">
           <h1 className="text-4xl font-bold ">Featured Features</h1>
         </div>

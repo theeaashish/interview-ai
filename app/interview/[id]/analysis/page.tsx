@@ -122,11 +122,11 @@ export default function AnalysisPage({ params }: AnalysisProps) {
       <InterviewNav interview={interview} />
       <div className="text-white container mx-auto py-6 px-1 max-w-[90%]">
         {/* heading and message */}
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex max-sm:flex-col max-sm:gap-6 max-sm:text-center justify-between items-center mb-6">
           <div>
             <h1 className="text-3xl font-bold">Questions Analysis</h1>
             {interview.status === "in-progress" && (
-              <p className="text-sm text-amber-600 mt-1">
+              <p className="text-sm max-sm:text-xs max-sm:px-14 text-amber-600 mt-1">
                 This interview is still in progress. Analysis is only available
                 for answered questions.
               </p>

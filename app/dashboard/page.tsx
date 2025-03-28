@@ -38,17 +38,17 @@ const Dashboard = () => {
   }
 
   return (
-    <div className='container mx-auto p-10'>
+    <div className='mx-auto p-10'>
       <div className='flex items-center mb-8 justify-between'>
-      <div className='flex items-center justify-between w-full'>
+      <div className='flex items-center max-sm:flex-col max-sm:text-center justify-between w-full'>
           <div>
-          <h1 className="text-3xl font-bold mb-2 text-white">Your Interviews</h1>
-          <p className="text-gray-500">
+          <h1 className="text-3xl font-bold sm:mb-2  text-white">Your Interviews</h1>
+          <p className="text-gray-500 max-sm:text-sm">
             Practice your interview skills with AI-powered feedback
           </p>
           </div>
 
-          <div>
+          <div className='max-sm:mt-4'>
             <InterviewBtn onClick={handleCreateInterview} text='Create new Interview' />
           </div>
         </div>

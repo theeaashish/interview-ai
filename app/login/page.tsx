@@ -64,26 +64,26 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="w-full h-screen text-white flex flex-col items-center justify-center gap-10 relative">
+    <div className="w-full h-screen max-sm:px-8 text-white flex flex-col items-center justify-center gap-10 relative">
       <Image width={200} height={200}
-        className="absolute left-6 top-4"
+        className="absolute max-sm:hidden left-6 top-4"
         src="/images/circle-shape3.svg"
         alt="circle-shape"
       />
       <Image width={200} height={200}
-        className=" absolute right-6 top-60"
+        className=" absolute max-sm:hidden right-6 top-60"
         src="/images/circle-shape2.svg"
         alt="circle-shape"
       />
       <Image width={200} height={200}
-        className="absolute left-6 bottom-0"
+        className="absolute max-sm:hidden left-6 bottom-0"
         src="/images/circle-shape1.svg"
         alt="circle-shape"
       />
 
       <div className="flex items-center justify-center gap-6">
-        <div className="bg-[var(--theme-color)] rounded-full w-[73px] h-[73px]"></div>
-        <h1 className="text-4xl font-bold">
+        <div className="bg-[var(--theme-color)] max-sm:hidden rounded-full w-[73px] h-[73px]"></div>
+        <h1 className="text-4xl max-sm:text-center max-sm:text-2xl font-bold">
           Welcome to Sign In{" "}
           <span className="text-[var(--theme-color)]">Buddy!</span>
         </h1>
@@ -118,7 +118,7 @@ export default function LoginPage() {
             placeholder="Enter your password"
           />
 
-          <div className="flex justify-between w-[50vw]">
+          <div className="flex justify-between max-sm:w-full w-[50vw]">
             <div className="flex items-center justify-center gap-3">
               <input
                 type="checkbox"

@@ -38,7 +38,7 @@ const UserProfile = () => {
         className="flex bg-zinc-900 cursor-pointer rounded-full px-2 py-2 gap-5 hover:bg-zinc-800 transition-colors"
       >
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 flex items-center justify-center rounded-full bg-zinc-700">
+          <div className="w-10 h-10 max-sm:w-8 max-sm:h-8 flex items-center justify-center rounded-full bg-zinc-700">
             {userData.avatar ? (
               <Image
                 width={40}
@@ -58,8 +58,8 @@ const UserProfile = () => {
           </div>
 
           <div className="text-white flex flex-col pr-6 -space-y-1">
-            <span className="font-medium">{userData.name}</span>
-            <span className="text-xs text-zinc-400">{userData.email}</span>
+            <span className="font-medium max-sm:text-xs">{userData.name}</span>
+            <span className="text-xs max-sm:text-[10px] text-zinc-400">{userData.email}</span>
           </div>
         </div>
       </div>

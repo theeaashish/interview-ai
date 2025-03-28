@@ -12,13 +12,13 @@ const OAuthBtn = ({path, text, account}: {path: string, text:string, account: st
           </Link>
         </div>
 
-        <div className="flex w-[50vw] items-center mt-4">
+        <div className="flex w-[50vw] max-sm:w-full items-center mt-4">
           <div className="w-full border-t-2 border-zinc-600"></div>
           <span className="text-base whitespace-nowrap px-4 text-[#B9B9B9]">Or continue with</span>
           <div className="w-full border-t-2 border-zinc-600"></div>
         </div>
 
-        <div className="flex w-[50vw] justify-center gap-4">
+        <div className="flex w-[50vw] max-sm:w-full justify-center gap-4">
             <SocialBtn src="/images/google.svg" alt="google" name="Google"/>
             <SocialBtn src="/images/facebook.svg" alt="facebook" name="Facebook"/>
           </div>

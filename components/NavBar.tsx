@@ -45,13 +45,13 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="flex items-center gap-6">
-        <Image
+        {/* <Image
           width={36}
           height={36}
           className="cursor-pointer sm:hidden invert"
           src="/images/download.svg"
           alt=""
-        />
+        /> */}
         {isAuthenticated ? (
           <UserProfile />
         ) : (

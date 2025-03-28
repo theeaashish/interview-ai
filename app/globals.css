@@ -37,7 +37,7 @@ input:-webkit-autofill:active {
     @apply px-2 py-1 text-xs rounded-full;
   }
   .input-div {
-    @apply flex items-center justify-center bg-[var(--input-bg)] sm:w-[50vw] h-[64px] rounded-[8px] px-6 gap-5;
+    @apply flex items-center max-sm:w-full justify-center bg-[var(--input-bg)] sm:w-[50vw] h-[64px] rounded-[8px] px-6 gap-5;
   }
   .input-field {
     @apply w-full h-full text-base placeholder-zinc-400 font-semibold outline-none bg-transparent;

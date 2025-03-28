@@ -12,7 +12,7 @@ interface ResultsNavProps {
 const ResultsNav = ({ handlePrint, handleShare, interviewId}: ResultsNavProps) => {
     const router = useRouter();
   return (
-    <div className='flex justify-between items-center mb-6'>
+    <div className='flex justify-between max-sm:flex-col max-sm:gap-4 items-center mb-6'>
         <h1 className='text-3xl font-bold'>Interview Results</h1>
 
         <div className='flex gap-2'>

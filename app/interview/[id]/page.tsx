@@ -123,7 +123,7 @@ export default function InterviewPage( { params }: InterviewPageProps ) {
   return (
     <>
     <InterviewNav interview={interview}/>
-    <div className="text-white py-6 px-22">
+    <div className="text-white py-6 max-sm:px-4 px-22">
       <div className="mb-6">
       </div>
 
