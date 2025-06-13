@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎙️ InterviewAI — AI-Powered Mock Interview Platform
 
-## Getting Started
+InterviewAI is a smart, full-stack mock interview platform designed to simulate real-life technical interviews. Leveraging AI, it generates role-specific questions, analyzes user responses, scores performance, and offers personalized feedback — all in one seamless experience.
+---
 
-First, run the development server:
+## 🚀 Features
+
+- 🧠 **AI-Generated Questions**  
+  Get tailored interview questions based on job role, tech stack, or your uploaded resume (PDF).
+
+- 🎤 **Voice-Based Interviewing**  
+  Use your mic to respond — the AI converts speech to text and evaluates your answers.
+
+- ✍️ **Editable Transcripts**  
+  Fix any misinterpretations from the mic input before submitting for analysis.
+
+- 📊 **Smart Scoring System**  
+  Your responses are scored on relevance, clarity, and depth.
+
+- 💡 **Personalized Feedback**  
+  Get improvement tips for each answer and your overall performance.
+
+- 📁 **Resume Parsing**  
+  Upload a resume to get customized interview questions based on your skills and experience.
+
+- 📈 **Test History & Dashboard**  
+  Track your past interviews, scores, and feedback — all in one place.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category       | Technology       |
+|----------------|------------------|
+| **Frontend**   | Next.js, TypeScript, Tailwind CSS |
+| **Backend**    | Node.js, Express |
+| **Database**   | MongoDB          |
+| **AI & NLP**   | Google Gemini API |
+| **Voice Input**| Web Speech API |
+
+---
+
+## 📦 Installation
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# Clone the repo
+git clone https://github.com/theeaashish/interview-ai
