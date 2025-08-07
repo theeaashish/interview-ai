@@ -13,7 +13,7 @@ const QuestionList = ({
 }: QuestionListProps) => {
   return (
     <div className="md:col-span-1 bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden p-4 h-fit">
-      <h2 className="text-lg font-semibold mb-3">Questions</h2>
+      <h2 className="mb-3 text-lg font-semibold">Questions</h2>
       <div className="space-y-2 max-h-[70vh] overflow-y-auto pr-2">
         {interview.questions.map((question: any, index: number) => (
           <button
@@ -27,7 +27,7 @@ const QuestionList = ({
                 : "hover:bg-pink-300/30"
             }`}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between">
               <span className="font-medium">Q{index + 1}</span>
 
               {question.analysis && question.answer && (
@@ -51,7 +51,7 @@ const QuestionList = ({
               )}
             </div>
 
-            <p className="truncate mt-1 text-zinc-300 text-sm">
+            <p className="mt-1 text-sm truncate text-zinc-300">
               {question.text.length > 50
                 ? `${question.text.substring(0, 50)}...`
                 : question.text}

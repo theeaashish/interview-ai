@@ -4,17 +4,17 @@ import type { NextRequest } from "next/server";
 
 // Debug function to log middleware activity
 const debug = (message: string, req: NextRequest) => {
-    if (process.env.NODE_ENV === 'development') {
-        console.log(`[Middleware] ${message} - Path: ${req.nextUrl.pathname}`);
-    }
+  if (process.env.NODE_ENV === "development") {
+    console.log(`[Middleware] ${message} - Path: ${req.nextUrl.pathname}`);
+  }
 };
 
 export function middleware(req: NextRequest) {
-    // TEMPORARILY DISABLED - Allow all requests to pass through
-    debug('Middleware disabled, allowing all requests', req);
-    return NextResponse.next();
+  // TEMPORARILY DISABLED - Allow all requests to pass through
+  debug("Middleware disabled, allowing all requests", req);
+  return NextResponse.next();
 
-    /* Original middleware code - commented out for debugging
+  /* Original middleware code - commented out for debugging
     // Skip middleware for static files and images
     if (
         req.nextUrl.pathname.startsWith('/_next') ||
@@ -82,7 +82,5 @@ export function middleware(req: NextRequest) {
 }
 
 export const config = {
-    matcher: [
-        '/((?!_next/static|_next/image|favicon.ico|images).*)',
-    ],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|images).*)"],
 };

@@ -26,19 +26,18 @@ const retryWithExponentialBackoff = async <T>(
     return await fn();
   } catch (error: any) {
     // Check if it's a rate limit error (429)
-    if (
-      retries > 0 &&
-      error?.status === 429
-    ) {
-      console.log(`Rate limit exceeded. Retrying in ${delay}ms... (${retries} retries left)`);
-      
+    if (retries > 0 && error?.status === 429) {
+      console.log(
+        `Rate limit exceeded. Retrying in ${delay}ms... (${retries} retries left)`
+      );
+
       // Wait for the specified delay
-      await new Promise(resolve => setTimeout(resolve, delay));
-      
+      await new Promise((resolve) => setTimeout(resolve, delay));
+
       // Retry with increased delay (exponential backoff)
       return retryWithExponentialBackoff(fn, retries - 1, delay * 2);
     }
-    
+
     // If it's not a rate limit error or we've exhausted retries, throw the error
     throw error;
   }
@@ -77,10 +76,10 @@ export const generateInterviewQuestions = async (
       Required format: { "questions": ["question1", "question2", ...] }`;
 
     // Use retry mechanism for API call
-    const result = await retryWithExponentialBackoff(() => 
+    const result = await retryWithExponentialBackoff(() =>
       model.generateContent(prompt)
     );
-    
+
     const text = await result.response.text();
 
     // Clean response and parse
@@ -129,10 +128,10 @@ export const analyzeResponse = async (
       }`;
 
     // Use retry mechanism for API call
-    const result = await retryWithExponentialBackoff(() => 
+    const result = await retryWithExponentialBackoff(() =>
       model.generateContent(prompt)
     );
-    
+
     const text = await result.response.text();
 
     // Clean and validate response
@@ -169,17 +168,23 @@ export const generateInterviewFeedback = async (
     });
 
     // Prepare the interview data for the prompt
-    const questionsAndAnswers = interview.questions.map((q: any, index: number) => {
-      return `
+    const questionsAndAnswers = interview.questions
+      .map((q: any, index: number) => {
+        return `
       Question ${index + 1}: ${q.text}
       Answer: ${q.answer || "No answer provided"}
       Score: ${q.analysis?.score || "N/A"}
       Technical Feedback: ${q.analysis?.technicalFeedback || "N/A"}
       Communication Feedback: ${q.analysis?.communicationFeedback || "N/A"}
       `;
-    }).join("\n");
+      })
+      .join("\n");
 
-    const prompt = `Generate comprehensive interview feedback based on the following interview for a ${interview.jobRole} position with ${interview.yearsOfExperience} years of experience in ${interview.techStack.join(", ")}.
+    const prompt = `Generate comprehensive interview feedback based on the following interview for a ${
+      interview.jobRole
+    } position with ${
+      interview.yearsOfExperience
+    } years of experience in ${interview.techStack.join(", ")}.
     
     ${questionsAndAnswers}
     
@@ -194,10 +199,10 @@ export const generateInterviewFeedback = async (
     }`;
 
     // Use retry mechanism for API call
-    const result = await retryWithExponentialBackoff(() => 
+    const result = await retryWithExponentialBackoff(() =>
       model.generateContent(prompt)
     );
-    
+
     const text = await result.response.text();
 
     // Clean and validate response

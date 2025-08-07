@@ -18,13 +18,13 @@ const QuizAndAnswer = ({
 }: QuizAndAnswerProps) => {
   return (
     <div className="bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden p-6">
-      <div className="flex justify-between items-start mb-4">
+      <div className="flex items-start justify-between mb-4">
         <h2 className="text-xl font-bold">
           Question {activeQuestionIndex + 1}
         </h2>
 
         {activeQuestion.analysis && activeQuestion.answer && (
-          <div className="flex items-end flex-col">
+          <div className="flex flex-col items-end">
             <div
               className={`px-3 py-1 text-sm rounded-full font-medium ${
                 activeQuestion.analysis.score >= 80
@@ -36,7 +36,7 @@ const QuizAndAnswer = ({
             >
               Score: {activeQuestion.analysis.score}/100
             </div>
-            <span className="text-sm mt-1">
+            <span className="mt-1 text-sm">
               {scoreLabel(activeQuestion.analysis.score)}
             </span>
           </div>
@@ -46,7 +46,7 @@ const QuizAndAnswer = ({
       {/* question and answer */}
 
       <div className="mb-6">
-        <h3 className="text-lg font-medium mb-2">Question:</h3>
+        <h3 className="mb-2 text-lg font-medium">Question:</h3>
         <p className="p-3 bg-[var(--theme-color)]/10 rounded-md">
           {activeQuestion.text}
         </p>
@@ -54,14 +54,14 @@ const QuizAndAnswer = ({
 
       {/* answer */}
       <div>
-        <h3 className="text-lg font-medium mb-2">Your Answer:</h3>
+        <h3 className="mb-2 text-lg font-medium">Your Answer:</h3>
 
         <div className="p-3 bg-[var(--theme-color)]/10 rounded-md">
           {activeQuestion.answer ? (
             <p>{activeQuestion.answer}</p>
           ) : (
-            <div className="text-center py-4">
-              <p className="text-zinc-300 italic mb-2">
+            <div className="py-4 text-center">
+              <p className="mb-2 italic text-zinc-300">
                 No answer provided yet
               </p>
               {interview.status === "in-progress" && (

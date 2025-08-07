@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useRouter } from "next/navigation";
 import NewInterviewForm from "@/components/interview/NewInterviewForm";
 
@@ -12,14 +12,20 @@ export default function NewInterviewPage() {
   return (
     <div className="text-white">
       <div>
-        <NewInterviewForm onClose={() => router.push('/dashboard')} onStartInterview={handleStartInterview} />
+        <NewInterviewForm
+          onClose={() => router.push("/dashboard")}
+          onStartInterview={handleStartInterview}
+        />
       </div>
 
       <div className="mt-2 text-center">
-        <button onClick={() => router.push('/dashboard')} className="text-blue-500 cursor-pointer hover:text-blue-600">
+        <button
+          onClick={() => router.push("/dashboard")}
+          className="text-blue-500 cursor-pointer hover:text-blue-600"
+        >
           Cancel and return to dashboard
         </button>
       </div>
     </div>
-  )
+  );
 }

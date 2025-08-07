@@ -167,7 +167,7 @@ export default function ResultsPage({ params }: ResultsPageProps) {
         />
 
         {/* tabs */}
-        <div className="border-b border-zinc-600 mb-6">
+        <div className="mb-6 border-b border-zinc-600">
           <nav className="flex mb-4">
             <ResultTabBtn
               tabText="overview"

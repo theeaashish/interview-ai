@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
 import Loader from "@/components/Loader";
@@ -9,7 +9,7 @@ import InterviewNav from "@/components/interview/InterviewNav";
 interface InterviewPageProps {
   params: {
     id: string;
-  }
+  };
 }
 
 // define interview interfcae
@@ -41,7 +41,7 @@ interface Interview {
   completedAt?: string;
 }
 
-export default function InterviewPage( { params }: InterviewPageProps ) {
+export default function InterviewPage({ params }: InterviewPageProps) {
   // unwrap params using react.use()
   const unwrappedParams = use(params as unknown as Promise<{ id: string }>);
   const interviewId = unwrappedParams.id;
@@ -55,13 +55,13 @@ export default function InterviewPage( { params }: InterviewPageProps ) {
     const fetchInterview = async () => {
       try {
         // get token from local storage
-        const token = localStorage.getItem('auth_token');
+        const token = localStorage.getItem("auth_token");
 
         if (!token) {
-          router.push('/login');
+          router.push("/login");
           return;
         }
-        
+
         const response = await fetch(`/api/interview/${interviewId}`, {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -69,24 +69,24 @@ export default function InterviewPage( { params }: InterviewPageProps ) {
         });
 
         if (!response.ok) {
-          throw new Error('Failed to fetch interviews');
+          throw new Error("Failed to fetch interviews");
         }
-        
+
         const data = await response.json();
         // console.log(data);
         setInterview(data.interview);
 
         // if interview is completed, redirect to result page
-        if (data.interview.status === 'completed') {
+        if (data.interview.status === "completed") {
           router.push(`/interview/${interviewId}/results`);
           return;
         }
       } catch (error) {
-        setError('Failed to load interviews. Please try again later');
+        setError("Failed to load interviews. Please try again later");
       } finally {
         setLoading(false);
       }
-    }
+    };
 
     fetchInterview();
   }, [interviewId, router]);
@@ -96,39 +96,35 @@ export default function InterviewPage( { params }: InterviewPageProps ) {
     setInterview(updatedInterview);
 
     // if the interview is now completed, redirect to result page
-    if (updatedInterview.status === 'completed') {
+    if (updatedInterview.status === "completed") {
       // use direct window location change for more reliable navigation
       window.location.href = `/interview/${interviewId}/results`;
     }
   };
 
   if (loading) {
-    return (
-      <Loader />
-    );
+    return <Loader />;
   }
 
   if (error) {
-    return (
-     <ErrorInterview bg="red" errors={error} />
-    );
+    return <ErrorInterview bg="red" errors={error} />;
   }
 
   if (!interview) {
-    return (
-      <ErrorInterview errors="Interview not found" bg="yellow" />
-    )
+    return <ErrorInterview errors="Interview not found" bg="yellow" />;
   }
 
   return (
     <>
-    <InterviewNav interview={interview}/>
-    <div className="text-white py-6 max-sm:px-4 px-22">
-      <div className="mb-6">
-      </div>
+      <InterviewNav interview={interview} />
+      <div className="py-6 text-white max-sm:px-4 px-22">
+        <div className="mb-6"></div>
 
-      <InterviewSession interview={interview} onInterviewUpdate={handleInterviewUpdate}/>
-    </div>
-      </>
-  )
+        <InterviewSession
+          interview={interview}
+          onInterviewUpdate={handleInterviewUpdate}
+        />
+      </div>
+    </>
+  );
 }

@@ -4,9 +4,12 @@ import Interview from "@/models/Interview";
 import { getUserIdFromToken } from "@/lib/auth";
 import { generateInterviewFeedback } from "@/lib/gemini";
 
-export async function POST(req: Request, context: { params: { id: string } }) {
+export async function POST(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
   try {
-    const { params } = context;
+    // const { id } = params;
     await connectDB();
 
     // get token from authorization header

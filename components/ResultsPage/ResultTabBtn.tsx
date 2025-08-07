@@ -1,12 +1,16 @@
-
 interface ResultTabBtnProps {
-    onClick: () => void;
-    activeTab: string;
-    text: string;
-    tabText: string;
+  onClick: () => void;
+  activeTab: string;
+  text: string;
+  tabText: string;
 }
 
-const ResultTabBtn = ({ onClick, activeTab, text, tabText }: ResultTabBtnProps) => {
+const ResultTabBtn = ({
+  onClick,
+  activeTab,
+  text,
+  tabText,
+}: ResultTabBtnProps) => {
   return (
     <button
       onClick={onClick}

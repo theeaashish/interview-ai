@@ -1,12 +1,10 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
-// import Webcam from "react-webcam";
+import Webcam from "react-webcam";
 import {
   ISpeechRecognition,
   ISpeechRecognitionEvent,
   ISpeechRecognitionErrorEvent,
-  Question,
-  Interview,
   InterviewSessionProps,
 } from "./SessionTypes";
 import PrevNextBtn from "./PrevNextBtn";
@@ -26,7 +24,7 @@ export default function InterviewSession({
   const [error, setError] = useState("");
   const [recordingTime, setRecordingTime] = useState(0);
 
-  // const webcamRef = useRef<Webcam>(null);
+  const webcamRef = useRef<Webcam>(null);
   const recognitionRef = useRef<ISpeechRecognition | null>(null);
   const timeRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -445,8 +443,8 @@ export default function InterviewSession({
     <div className="flex flex-col gap-6 p-6 text-white bg-[var(--input-bg)]/30 rounded-lg shadow-sm">
       {/*previous, next btn question length  */}
 
-      <div className="flex justify-between items-center">
-        <div className="text-sm text-gray-400 font-semibold">
+      <div className="flex items-center justify-between">
+        <div className="text-sm font-semibold text-gray-400">
           <div className="flex items-center gap-2">
             Question
             <span className="bg-gradient-to-br from-[#b87a9c] to-[#d8a1bc] text-white font-bold rounded-full w-7 h-7 flex items-center justify-center text-xs shadow-lg shadow-[#b87a9c]/20">
@@ -483,27 +481,36 @@ export default function InterviewSession({
           style={{ width: `${progress}%` }}
         ></div>
       </div>
-      <div className="flex flex-col lg:flex-row gap-6">
+      <div className="flex flex-col gap-6 lg:flex-row">
         {/* web cam section */}
         <div className="lg:w-1/3 bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden">
           <div className="bg-gradient-to-r from-[#b87a9c]/20 to-transparent p-6">
-            <h1 className="text-xl font-semibold text-white flex items-center gap-2">
+            <h1 className="flex items-center gap-2 text-xl font-semibold text-white">
               <span className="h-5 w-1 bg-[#b87a9c] rounded-full"></span>
               Voice Response
             </h1>
           </div>
 
           <div className="w-full p-6">
-            {/* <div className="relative">
-            <Webcam audio={true} ref={webcamRef} className="rounded-lg w-full h-[325px] shadow-md bg-zinc-900" videoConstraints={{ width:640, height:480, facingMode: 'user'}}/>
-            { isRecording && (
-              <div className="absolute top-3 right-3 bg-red-500 text-white px-2 py-1 rounded-full text-xs flex items-center">
-              <span className="inline-block w-2 h-2 bg-white rounded-full mr-1 animate-pulse"></span>
-              REC {formatTime(recordingTime)}
-              </div>
-              ) }
-              </div> */}
-            <div className="flex gap-2 -mt-3">
+            <div className="relative">
+              <Webcam
+                audio={false}
+                ref={webcamRef}
+                className="rounded-lg w-full h-[200px] shadow-md bg-zinc-900"
+                videoConstraints={{
+                  width: 560,
+                  height: 300,
+                  facingMode: "user",
+                }}
+              />
+              {isRecording && (
+                <div className="absolute flex items-center px-2 py-1 text-xs text-white bg-red-500 rounded-full top-3 right-3">
+                  <span className="inline-block w-2 h-2 mr-1 bg-white rounded-full animate-pulse"></span>
+                  REC {formatTime(recordingTime)}
+                </div>
+              )}
+            </div>
+            <div className="flex gap-2 mt-3">
               <Mic className="w-5 text-[#b87a9c]" />
               <span>Audio Input</span>
             </div>
@@ -530,10 +537,10 @@ export default function InterviewSession({
                 Interview Tips:
               </h2>
 
-              <ul className="text-xs mt-4 text-slate-400 space-y-3">
+              <ul className="mt-4 space-y-3 text-xs text-slate-400">
                 <li className="flex items-center gap-2 bg-[#b87a9c]/10 p-2 rounded-md border border-[#b8a1bc]/30 hover:border-[#b87a9c]/30 transition-all">
                   <span className="bg-[#b87a9c]/20 text-[#d8a1bc] rounded-full p-1 mt-0.5">
-                    <Zap className="h-3 w-3" />
+                    <Zap className="w-3 h-3" />
                   </span>
                   <span>
                     Speak clearly and at a moderate pace for better voice
@@ -542,7 +549,7 @@ export default function InterviewSession({
                 </li>
                 <li className="flex items-center gap-2 bg-[#b87a9c]/10 p-2 rounded-md border border-[#b8a1bc]/30 hover:border-[#b87a9c]/30 transition-all">
                   <span className="bg-[#b87a9c]/20 text-[#d8a1bc] rounded-full p-1 mt-0.5">
-                    <Sparkles className="h-3 w-3" />
+                    <Sparkles className="w-3 h-3" />
                   </span>
                   <span>
                     Structure your answer with an introduction, main points, and
@@ -551,7 +558,7 @@ export default function InterviewSession({
                 </li>
                 <li className="flex items-center gap-2 bg-[#b87a9c]/10 p-2 rounded-md border border-[#b8a1bc]/30 hover:border-[#b87a9c]/30 transition-all">
                   <span className="bg-[#b87a9c]/20 text-[#d8a1bc] rounded-full p-1 mt-0.5">
-                    <CheckCircle2 className="h-3 w-3" />
+                    <CheckCircle2 className="w-3 h-3" />
                   </span>
                   <span>
                     Use specific examples from your experience to demonstrate
@@ -564,7 +571,7 @@ export default function InterviewSession({
         </div>
 
         {/* interview section */}
-        <div className="lg:w-2/3 space-y-6">
+        <div className="space-y-6 lg:w-2/3">
           {/* questioin appear */}
           <div className="bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden">
             <div className="bg-[#b87a9c]/10 px-1 py-3">
@@ -576,7 +583,7 @@ export default function InterviewSession({
               </div>
             </div>
             <div className="p-6">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <h2 className="flex items-center gap-2 mb-4 text-xl font-bold">
                 <span className="h-5 w-1 bg-[#b87a9c] rounded-full"></span>
                 Current Question
               </h2>
@@ -589,9 +596,9 @@ export default function InterviewSession({
           <div className="bg-gradient-to-r from-[#b87a9c]/20 to-[#d8a1bc]/10 rounded-xl backdrop-blur-sm border border-[#b87a9c]/30 shadow-lg overflow-hidden">
             <div className="bg-[#b87a9c]/10 p-1 text-sm">
               <div className="flex items-center gap-2 px-4 py-2">
-                <div className="h-2 w-2 rounded-full bg-slate-600"></div>
-                <div className="h-2 w-2 rounded-full bg-slate-700"></div>
-                <div className="h-2 w-2 rounded-full bg-slate-800"></div>
+                <div className="w-2 h-2 rounded-full bg-slate-600"></div>
+                <div className="w-2 h-2 rounded-full bg-slate-700"></div>
+                <div className="w-2 h-2 rounded-full bg-slate-800"></div>
                 <div className="flex-1"></div>
                 <div className="bg-[#b87a9c]/20 text-[#d8a1bc] hover:bg-[#b87a9c]/30 px-3 py-1 rounded-full border-[#b87a9c]/30 font-semibold">
                   Your Response
@@ -599,7 +606,7 @@ export default function InterviewSession({
               </div>
             </div>
             <div className="p-6">
-              <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <h2 className="flex items-center gap-2 mb-4 text-xl font-bold">
                 <span className="h-5 w-1 bg-[#b87a9c] rounded-full"></span>
                 Your Answer
               </h2>
@@ -612,22 +619,22 @@ export default function InterviewSession({
               />
 
               {isRecording && transcript && (
-                <div className="mt-2 text-sm text-gray-300 bg-gray-700 p-2 rounded">
+                <div className="p-2 mt-2 text-sm text-gray-300 bg-gray-700 rounded">
                   <span className="font-medium">Currently transcribing:</span>{" "}
                   {transcript}
                 </div>
               )}
 
               {error && (
-                <div className="mt-2 text-red-500 text-sm bg-red-900/20 p-2 rounded">
+                <div className="p-2 mt-2 text-sm text-red-500 rounded bg-red-900/20">
                   {error}
                 </div>
               )}
 
               {/* submit answer */}
 
-              <div className="flex justify-between items-center mt-4">
-                <div className="text-sm text-zinc-300 font-medium">
+              <div className="flex items-center justify-between mt-4">
+                <div className="text-sm font-medium text-zinc-300">
                   {interview.questions[currentIndex].answer
                     ? "This question has been asnwered. You can edit your answer."
                     : ""}

@@ -1,13 +1,13 @@
 import React from "react";
 
 interface NextPrevBtn {
-    onClick: any;
-    disabled: any;
-    classes: any;
-    label: string;
+  onClick: any;
+  disabled: any;
+  classes: any;
+  label: string;
 }
 
-const PrevNextBtn = ({onClick, disabled, classes, label}: NextPrevBtn) => {
+const PrevNextBtn = ({ onClick, disabled, classes, label }: NextPrevBtn) => {
   return (
     <button
       onClick={onClick}

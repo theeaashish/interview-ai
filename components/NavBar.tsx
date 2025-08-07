@@ -15,13 +15,10 @@ const NavBar = () => {
     <nav className="min-h-[100px] items-center flex sm:px-10 px-8 justify-between">
       <div className="flex items-center gap-3">
         <Link href={"/"} className="flex items-center gap-3">
-          <Image
-            width={35}
-            height={35}
-            src="/images/logo.svg"
-            alt="Logo"
-          />
-          <h2 className="sm:text-3xl text-2xl text-white font-medium">interwise</h2>
+          <Image width={35} height={35} src="/images/logo.svg" alt="Logo" />
+          <h2 className="text-2xl font-medium text-white sm:text-3xl">
+            interwise
+          </h2>
         </Link>
       </div>
       <div className="max-lg:hidden">
