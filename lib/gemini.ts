@@ -12,7 +12,7 @@ const generationConfig = {
 
 // Retry configuration
 const MAX_RETRIES = 3;
-const INITIAL_RETRY_DELAY = 2000; // 2 seconds
+const INITIAL_RETRY_DELAY = 2000;
 
 /**
  * Helper function to implement exponential backoff for API calls
@@ -70,12 +70,51 @@ export const generateInterviewQuestions = async (
       generationConfig,
     });
 
-    const prompt = `Generate 6 technical interview questions in valid JSON format based on:
-      ${context}
-      
-      Required format: { "questions": ["question1", "question2", ...] }`;
+    const prompt = `You are an expert technical interviewer.
+    - Generate exactly 15 interview questions from ${context}.
+    - Goal:
+    - The first 3 questions MUST be soft-skill questions commonly asked across companies.
+    - Exactly 5 questions in total MUST be soft-skill; the remaining 10 MUST be technical.
+    - Place the remaining two soft-skill questions at positions 8 and 13.
+    - Keep the tone professional and concise, suitable for a formal interview loop.
 
-    // Use retry mechanism for API call
+    Output rules (strict):
+    - Return ONLY valid JSON; no prose, markdown, or comments.
+    - JSON shape must be exactly:
+    { "questions": ["question1", "question2", ...] }
+    - The "questions" array length MUST be 15.
+    - Each element MUST be a single-string question ending with "?" (no numbering, no labels, no multi-part).
+    - Use standard JSON quoting (double quotes) with proper escaping; no trailing commas.
+
+    Soft-skill guidance:
+    - For the first 3 questions, choose from these common themes:
+    1) Ownership/accountability under setbacks.
+    2) Handling conflict or disagreement with a teammate/stakeholder.
+    3) Prioritization/time management amid ambiguity.
+    - The additional soft-skill questions at positions 8 and 13 should focus on:
+    4) Receiving/giving feedback and adapting.
+    5) Cross-functional communication or influencing without authority.
+    - Keep each soft-skill question scenario-based, neutral, and ≤ 28 words.
+
+    Technical guidance:
+    - Derive topics directly from ${context}. If ${context} lacks detail, assume modern full-stack web development (Node.js/TypeScript/React/Next.js, REST/GraphQL, SQL/NoSQL, testing, security, performance, cloud, CI/CD).
+    - Mix fundamentals and applied problem-solving: API design, data modeling, authentication/authorization, caching/performance, debugging, testing strategy, scalability, reliability, system design at the appropriate scope.
+    - Avoid trivia and brainteasers; prefer “How would you…”, “What trade-offs…”, “Given X, how would you…”.
+    - Keep each technical question ≤ 28 words, specific, and unambiguous.
+
+    Language:
+    - Use the language implied by ${context}; default to English.
+
+    Validation checklist BEFORE responding (internal):
+    1) Count = 15.
+    2) Q1–Q3 are soft-skill; exactly 5 soft-skill in total; additional soft-skill at Q8 and Q13.
+    3) All items end with "?" and are single sentences.
+    4) JSON is syntactically valid and matches the exact shape.
+    5) No explanations or extra keys.
+
+    Now generate the JSON for ${context}.
+`;
+
     const result = await retryWithExponentialBackoff(() =>
       model.generateContent(prompt)
     );
@@ -198,7 +237,6 @@ export const generateInterviewFeedback = async (
       "nextSteps": string[]
     }`;
 
-    // Use retry mechanism for API call
     const result = await retryWithExponentialBackoff(() =>
       model.generateContent(prompt)
     );
